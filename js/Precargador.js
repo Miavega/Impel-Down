@@ -8,6 +8,7 @@ GameState.Precargador.prototype = {
         //FONDO, TEXTO Y OVERLAY
         this.load.image('screen-mainmenu', 'assets/fondo-menu.gif');
         this.load.image('screen-howtoplay', 'assets/how-to-play.jpeg');
+        this.load.image('screen-howtoplay-2', 'assets/how-to-play-2.png');
         this.load.image('screen-sky', 'assets/sky.gif');
         this.load.image('island', 'assets/isla.gif');
         this.load.image('title', 'assets/titulo1.png');
@@ -70,8 +71,6 @@ GameState.Precargador.prototype = {
         this.load.image('A3-R4', 'assets/escenas/acto III/A3-R4.png');
         this.load.image('A3-R5', 'assets/escenas/acto III/A3-R5.png');
         this.load.image('ACTO-3', 'assets/escenas/acto III/ACTO-3.png');
-
-
 
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);

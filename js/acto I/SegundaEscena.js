@@ -127,21 +127,43 @@ GameState.SegundaEscena.prototype = {
     callEscena21: function () {
         this.textOptionDecisionA.setText("");
         this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.decisionA = true;
         this.decision = 0;
         this.escena = 1;
         this.clearText();
     },
     callEscena211: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.escena = 3;
         this.clearText();
     },
     callEscena212: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.auxMedidor = true;
         this.escena = 4;
         this.clearText();
     },
     callEscena2121: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.textOptionADecisionA.destroy();
         this.textOptionBDecisionB.destroy();
         this.decisionB = true;
@@ -149,6 +171,12 @@ GameState.SegundaEscena.prototype = {
         this.clearText();
     },
     callEscena2122: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.textOptionADecisionA.destroy();
         this.textOptionBDecisionB.destroy();
         this.decisionB = false;
@@ -156,18 +184,34 @@ GameState.SegundaEscena.prototype = {
         this.clearText();
     },
     callEscena21211: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.escena = 7;
         this.clearText();
     },
     callEscena22: function () {
         this.textOptionDecisionA.setText("");
         this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.decisionA = false;
         this.decision = 1;
         this.escena = 2;
         this.clearText();
     },
     callEscena23: function () {
+        this.textOptionDecisionA.setText("");
+        this.textOptionDecisionB.setText("");
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textOptionADecisionA.setText("");
+        this.textOptionBDecisionB.setText("");
         this.escena = 8;
         this.clearText();
     },
@@ -201,7 +245,6 @@ GameState.SegundaEscena.prototype = {
         else if (this.escena == 1) {
             this.escenaImg[0].visible = false;
             this.escenaImg[1].visible = true;
-            this.textOptionA.setText("Continuar");
             this.textOptionA.events.onInputUp.add(this.callEscena211, this);
             this.textOptionB.events.onInputUp.add(this.callEscena211, this);
             this.textOptionB.setText("");
@@ -210,6 +253,7 @@ GameState.SegundaEscena.prototype = {
                 "a \n Sophie, le llevaré algo de beber°"
             ];
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
@@ -218,12 +262,12 @@ GameState.SegundaEscena.prototype = {
         else if (this.escena == 2) {
             this.escenaImg[0].visible = false;
             this.escenaImg[6].visible = true;
-            this.textOptionA.setText("Continuar");
             this.textOptionA.events.onInputUp.add(this.callEscena212, this);
             this.textOptionB.setText("");
             this.dialogo = ["FOLLETO DE REACCIÓN DE EMERGENCIAS", "ARTHUR: °Pensar que muchas veces nunca nos tomamos ni la \n molestia de leer éstas cosas.°"
             ];
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
@@ -232,7 +276,6 @@ GameState.SegundaEscena.prototype = {
         else if (this.escena == 3) {
             this.escenaImg[1].visible = false;
             this.escenaImg[2].visible = true;
-            this.textOptionA.setText("Continuar");
             this.textOptionA.events.onInputUp.add(this.callEscena212, this);
             this.textOptionB.setText("");
             this.dialogo = ["SOPHIE: ¿Ya llegamos?", "ARTHUR: Estamos cerca, traje algo de beber, tu jugo favorito.",
@@ -241,6 +284,7 @@ GameState.SegundaEscena.prototype = {
             ];
             this.updateMedidorAumentar(this.medidorSocial, 5, 5);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
@@ -257,22 +301,20 @@ GameState.SegundaEscena.prototype = {
             }
             this.textOptionA.setText("");
             this.textOptionB.setText("");
-            this.textOptionADecisionA.setText("a) Hablar con la azafata");
-            this.textOptionBDecisionB.setText("b) Hablar con el pasajero del lado");
             this.textOptionADecisionA.events.onInputUp.add(this.callEscena2121, this);
             this.textOptionBDecisionB.events.onInputUp.add(this.callEscena2122, this);
             this.dialogo = ["CAPITÁN: Señores pasajeros les habla su capitán, estamos pasando  \n por una tormenta y habrá " +
                 "turbulencia, por favor abróchense \n los cinturones y permanezcan en calma."
             ];
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionADecisionA.setText("a) Hablar con la azafata");
+                this.textOptionBDecisionB.setText("b) Hablar con el pasajero del lado");
                 this.clearText();
                 this.updateText();
             }
         }
         //ESCENA 2.1.2.1
         else if (this.escena == 5) {
-            this.textOptionA.setText("Continuar");
-            this.textOptionB.setText("");
             this.textOptionA.events.onInputUp.add(this.callEscena21211, this);
             if (this.decision == 0) {
                 this.escenaImg[3].visible = false;
@@ -293,6 +335,8 @@ GameState.SegundaEscena.prototype = {
                 ];
             }
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
+                this.textOptionB.setText("");
                 this.clearText();
                 this.updateText();
             }
@@ -300,8 +344,6 @@ GameState.SegundaEscena.prototype = {
         //ESCENA 2.1.2.2
         else if (this.escena == 6) {
             this.escenaImg[3].visible = false;
-            this.textOptionA.setText("Continuar");
-            this.textOptionB.setText("");
             this.textOptionA.events.onInputUp.add(this.callEscena21211, this);
             if (this.decision == 0) {
                 this.escenaImg[5].visible = true;
@@ -322,6 +364,8 @@ GameState.SegundaEscena.prototype = {
                 ];
             }
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
+                this.textOptionB.setText("");
                 this.clearText();
                 this.updateText();
             }
@@ -333,14 +377,14 @@ GameState.SegundaEscena.prototype = {
             this.escenaImg[8].visible = false;
             this.escenaImg[9].visible = false;
             this.escenaImg[10].visible = true;
-            this.textOptionA.setText("Continuar");
-            this.textOptionB.setText("");
             this.textOptionA.events.onInputUp.add(this.callEscena23, this);
             this.dialogo = ["CAPITÁN: Señores pasajeros, por favor usen las mascarillas que \n están sobre sus cabezas y " +
                 "permanezcan en sus asientos, \n ¡Mayday! ¡Mayday! Los controles del avión no responden", "ARTHUR: Sophie toma mi mano, no la sueltes",
                 "SOPHIE: Papá tengo miedo, que está pasando", "ARTHUR: Todo va a estar bien"
             ];
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
+                this.textOptionB.setText("");
                 this.clearText();
                 this.updateText();
             }

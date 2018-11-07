@@ -95,10 +95,14 @@ GameState.PrimeraEscena.prototype = {
         }
     },
     upA: function () {
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
         this.escena++;
         this.clearText();
     },
     upB: function () {
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
         this.escena += 2;
         this.clearText();
     },
@@ -122,13 +126,13 @@ GameState.PrimeraEscena.prototype = {
         else if (this.escena == 1) {
             this.escenaImg[0].visible = false;
             this.escenaImg[1].visible = true;
-            this.textOptionA.setText("Continuar");
-            this.textOptionB.setText("");
             this.dialogo = ["SOPHIE: ¿Que pasa?", "ARTHUR: Nada, pensé que querrías hablar del viaje, \n tu madre estará contenta de verte.",
                 "SOPHIE: Sabes que odio que hayas tomado ésta decisión.", "SOPHIE: zZzZz"
             ];
             this.updateMedidorSocial(this.medidorSocial);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("Continuar");
+                this.textOptionB.setText("");
                 this.clearText();
                 this.updateText();
             }

@@ -126,6 +126,8 @@ GameState.PrimeraEscenaA2.prototype = {
             this.escena = 2;
             this.clearText();
         }
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
         this.textA.setText("");
         this.textB.setText("");
         this.auxMedidorAumenta = true;
@@ -138,11 +140,17 @@ GameState.PrimeraEscenaA2.prototype = {
             this.escena = 4;
             this.clearText();
         }
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
         this.textA.setText("");
         this.textB.setText("");
         this.auxMedidorDisminuye = true;
     },
     callActoIII: function () {
+        this.textOptionA.setText("");
+        this.textOptionB.setText("");
+        this.textA.setText("");
+        this.textB.setText("");
         this.escena = 5;
         this.clearText();
     },
@@ -167,9 +175,9 @@ GameState.PrimeraEscenaA2.prototype = {
                 this.dialogo = ["ARTHUR: Sophie quédate conmigo, todo estará bien"];
                 this.updateMedidorDisminuir(this.medidorVida, 5, 1);
             }
-            this.textA.setText("Continuar");
-            this.textB.setText("");
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textA.setText("Continuar");
+                this.textB.setText("");
                 this.clearText();
                 this.updateText();
             }
@@ -182,9 +190,9 @@ GameState.PrimeraEscenaA2.prototype = {
             this.dialogo = ["SOPHIE: Sophie: Papá, el aún respira.", "ARTHUR: Él estaba sentado frente a nosotros"];
             this.textOptionA.events.onInputUp.add(this.callActoIII, this);
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
-            this.textOptionA.setText("a) Tomar el arma del agente McGregor y despertarlo");
-            this.textOptionB.setText("b) Despertar al agente McGregor");
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("a) Tomar el arma del agente McGregor y despertarlo");
+                this.textOptionB.setText("b) Despertar al agente McGregor");
                 this.clearText();
                 this.updateText();
             }
@@ -197,9 +205,9 @@ GameState.PrimeraEscenaA2.prototype = {
             this.dialogo = ["SOPHIE: Sophie: Papá, el aún respira.", "ARTHUR: Él estaba sentado junto a nosotros"];
             this.textOptionA.events.onInputUp.add(this.callActoIII, this);
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
-            this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
-            this.textOptionB.setText("b) Ayudar a Jeff");
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
+                this.textOptionB.setText("b) Ayudar a Jeff");
                 this.clearText();
                 this.updateText();
             }
@@ -212,9 +220,9 @@ GameState.PrimeraEscenaA2.prototype = {
             this.dialogo = ["ARTHUR: Jeff, ¿me escuchas?"];
             this.textOptionA.events.onInputUp.add(this.callActoIII, this);
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
-            this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
-            this.textOptionB.setText("b) Ayudar a Jeff");
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
+                this.textOptionB.setText("b) Ayudar a Jeff");
                 this.clearText();
                 this.updateText();
             }
@@ -227,9 +235,9 @@ GameState.PrimeraEscenaA2.prototype = {
             this.dialogo = ["ARTHUR: Señorita, ¿me escucha?"];
             this.textOptionA.events.onInputUp.add(this.callActoIII, this);
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
-            this.textOptionA.setText("a) Tomar el bolso y ayudar a Betty");
-            this.textOptionB.setText("b) Ayudar a Betty");
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA.setText("a) Tomar el bolso y ayudar a Betty");
+                this.textOptionB.setText("b) Ayudar a Betty");
                 this.clearText();
                 this.updateText();
             }
