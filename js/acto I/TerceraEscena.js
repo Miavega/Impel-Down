@@ -6,8 +6,9 @@ GameState.TerceraEscena.prototype = {
     },
     create: function () {
         //CARGAMOS EL FONDO Y EL SPRITE DEL AVIÓN
-        this.screen = this.add.sprite(0, 0, 'screen-sky');
+        this.screen = [this.add.sprite(0, 0, 'screen-sky'), this.add.sprite(0, 0, 'island')];
         this.airplane = this.add.sprite(160, 300, 'airplane');
+        this.screen[1].visible = false;
         //this.airplane.scale.setTo(-1,1);
         this.humo = this.add.sprite(160, 325, 'humo');
         this.humo.visible = false;
@@ -63,7 +64,8 @@ GameState.TerceraEscena.prototype = {
             this.airplane.y = 0;
             this.humo.x = 0;
             this.humo.y = 0;
-            this.screen = this.add.sprite(0, 0, 'island');
+            this.screen[0].visible = false;
+            this.screen[1].visible = true;
         }
 
     },
