@@ -6,7 +6,6 @@ GameState.Inicio = function (game) { };
 GameState.Inicio.prototype = {
     //BARRA DE PROGRESO MIETRAS SE CARGAN LOS ELEMENTOS DEL JUEGO
     preload: function () {
-        //this.load.image('progressbarE', 'assets/progressbar-empty.png');
         this.load.image('progressbarF', 'assets/progressbar-full.png');
     },
     create: function () {

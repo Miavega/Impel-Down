@@ -2,8 +2,7 @@ GameState.Precargador = function (game) { };
 GameState.Precargador.prototype = {
     //CARGA TODOS LOS ELEMENTOS DEL JUEGO
     preload: function () {
-        //this.progressbarE = this.add.sprite((GameState._WIDTH - 297) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarE');
-        this.progressbarF = this.add.sprite((GameState._WIDTH - 297) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarF');
+        this.progressbarF = this.add.sprite((GameState._WIDTH - 400) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarF');
         this.load.setPreloadSprite(this.progressbarF);
 
         //FONDO, TEXTO Y OVERLAY
@@ -71,8 +70,8 @@ GameState.Precargador.prototype = {
         this.load.image('A3-R4', 'assets/escenas/acto III/A3-R4.png');
         this.load.image('A3-R5', 'assets/escenas/acto III/A3-R5.png');
         this.load.image('ACTO-3', 'assets/escenas/acto III/ACTO-3.png');
-        
-        
+
+
 
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);
