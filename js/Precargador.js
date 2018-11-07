@@ -2,8 +2,8 @@ GameState.Precargador = function (game) { };
 GameState.Precargador.prototype = {
     //CARGA TODOS LOS ELEMENTOS DEL JUEGO
     preload: function () {
-        this.progressbarE = this.add.sprite((GameState._WIDTH - 297) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarE');
-        this.progressbarF = this.add.sprite((GameState._WIDTH - 158) * 0.5, (GameState._HEIGHT - 50) * 0.5, 'progressbarF');
+        //this.progressbarE = this.add.sprite((GameState._WIDTH - 297) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarE');
+        this.progressbarF = this.add.sprite((GameState._WIDTH - 297) * 0.5, (GameState._HEIGHT - 145) * 0.5, 'progressbarF');
         this.load.setPreloadSprite(this.progressbarF);
 
         //FONDO, TEXTO Y OVERLAY
@@ -37,6 +37,42 @@ GameState.Precargador.prototype = {
         this.load.image('A2-3.2.2', 'assets/escenas/acto II/A2-3.2.2.png');
         this.load.image('A2-3.2', 'assets/escenas/acto II/A2-3.2.png');
         this.load.image('ACTO-2', 'assets/escenas/acto II/ACTO-2.png');
+
+        //ACTO III
+        this.load.image('A3-4.1.A', 'assets/escenas/acto III/A3-4.1.A.png');
+        this.load.image('A3-4.1.B', 'assets/escenas/acto III/A3-4.1.B.png');
+        this.load.image('A3-4.1.C', 'assets/escenas/acto III/A3-4.1.C.png');
+        this.load.image('A3-4.A', 'assets/escenas/acto III/A3-4.A.png');
+        this.load.image('A3-4.B', 'assets/escenas/acto III/A3-4.B.png');
+        this.load.image('A3-4.C', 'assets/escenas/acto III/A3-4.C.png');
+        this.load.image('A3-5', 'assets/escenas/acto III/A3-5.png');
+        this.load.image('A3-6.A', 'assets/escenas/acto III/A3-6.A.png');
+        this.load.image('A3-6.B', 'assets/escenas/acto III/A3-6.B.png');
+        this.load.image('A3-6.C', 'assets/escenas/acto III/A3-6.C.png');
+        this.load.image('A3-7.1', 'assets/escenas/acto III/A3-7.1.png');
+        this.load.image('A3-7', 'assets/escenas/acto III/A3-7.png');
+        this.load.image('A3-8', 'assets/escenas/acto III/A3-8.png');
+        this.load.image('A3-10', 'assets/escenas/acto III/A3-10.png');
+        this.load.image('A3-11.A', 'assets/escenas/acto III/A3-11.A.png');
+        this.load.image('A3-11.B', 'assets/escenas/acto III/A3-11.B.png');
+        this.load.image('A3-11.C', 'assets/escenas/acto III/A3-11.C.png');
+        this.load.image('A3-12', 'assets/escenas/acto III/A3-12.png');
+        this.load.image('A3-13.1.1.2', 'assets/escenas/acto III/A3-13.1.1.2.png');
+        this.load.image('A3-13.1.A', 'assets/escenas/acto III/A3-13.1.A.png');
+        this.load.image('A3-13.1.B', 'assets/escenas/acto III/A3-13.1.B.png');
+        this.load.image('A3-13.1.C', 'assets/escenas/acto III/A3-13.1.C.png');
+        this.load.image('A3-13.A', 'assets/escenas/acto III/A3-13.A.png');
+        this.load.image('A3-13.B', 'assets/escenas/acto III/A3-13.B.png');
+        this.load.image('A3-13.C', 'assets/escenas/acto III/A3-13.C.png');
+        this.load.image('A3-13', 'assets/escenas/acto III/A3-13.png');
+        this.load.image('A3-R1', 'assets/escenas/acto III/A3-R1.png');
+        this.load.image('A3-R2', 'assets/escenas/acto III/A3-R2.png');
+        this.load.image('A3-R3', 'assets/escenas/acto III/A3-R3.png');
+        this.load.image('A3-R4', 'assets/escenas/acto III/A3-R4.png');
+        this.load.image('A3-R5', 'assets/escenas/acto III/A3-R5.png');
+        this.load.image('ACTO-3', 'assets/escenas/acto III/ACTO-3.png');
+        
+        
 
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);

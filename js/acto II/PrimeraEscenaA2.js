@@ -107,7 +107,7 @@ GameState.PrimeraEscenaA2.prototype = {
     updateMedidorDisminuir(medidor, rangoa, rangob) {
         if (this.auxMedidor) {
             this.numero = Math.floor((Math.random() * rangoa) + rangob);
-            medidor.setValor(this.numero);
+            medidor.setValor(this.numero);  
             this.auxMedidorDisminuye = false;
         }
     },
