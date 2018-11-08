@@ -20,22 +20,31 @@ GameState.TerceraEscena.prototype = {
         //CONTADOR DE TIEMPO
         this.timer = 0;
         this.time.events.loop(Phaser.Timer.SECOND, this.updateCounter, this)
-
-        /*this.buttonContinue = [this.add.button(0, 0, 'screen-howtoplay', this.updateImg, this),
-        this.add.button(0, 0, 'ACTO-2', this.startGame, this)
-        ];
-        this.buttonContinue[1].visible = false;*/
     },
     updateCounter: function () {
         this.timer++;
     },
-    updateImg: function () {
-        this.buttonContinue[0].visible = false;
-        this.buttonContinue[1].visible = true;
+    imgEstocastico: function () {
+        this.estocasticos[0].visible = false;
+        this.estocasticos[1].visible = true;
+    },
+    continue: function () {
+        this.add.button(0, 0, 'ACTO-2', this.startGame, this);
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
-        this.game.state.start('PrimeraEscenaA2', false, false, this.decisionA, this.decisionB);
+        this.game.state.start('PrimeraEscenaA2', true, false, this.decisionA, this.decisionB);
+    },
+    //MUEVE LA PANTALLA
+    shake: function () {
+        this.game.camera.shake(0.05, 500);
+    },
+    //OSCURESE LA PANTALLA
+    fade: function () {
+        this.game.camera.fade(0x000000, 4000);
+    },
+    resetFade: function () {
+        this.game.camera.resetFX();
     },
     update: function () {
         if (this.timer < 3) {
@@ -50,16 +59,16 @@ GameState.TerceraEscena.prototype = {
             this.humo.animations.play('smoke', 10, true);
         }
         else if (this.timer == 6) {
-            this.airplane.angle += 1;
+            this.airplane.angle += 0.5;
             this.humo.angle += 0.5;
         }
-        else if (this.timer > 6 && this.timer <= 10) {
+        else if (this.timer > 6 && this.timer < 10) {
             this.airplane.x += 2;
             this.airplane.y += 2;
             this.humo.x += 2;
             this.humo.y += 2;
         }
-        else if (this.timer > 10) {
+        else if (this.timer == 10) {
             this.airplane.x = 0;
             this.airplane.y = 0;
             this.humo.x = 0;
@@ -67,6 +76,23 @@ GameState.TerceraEscena.prototype = {
             this.screen[0].visible = false;
             this.screen[1].visible = true;
         }
-
+        else if (this.timer > 10 && this.timer < 17) {
+            this.airplane.x += 2;
+            this.airplane.y += 2;
+            this.humo.x += 2;
+            this.humo.y += 2;
+        }
+        else if (this.timer == 17) {
+            this.shake();
+            this.fade();
+        }
+        else if (this.timer == 21) {
+            this.screen[1].visible = false;
+            this.resetFade();
+            this.estocasticos = [this.add.button(0, 0, 'estocastico-2', this.imgEstocastico, this),
+            this.add.button(0, 0, 'estocastico-3', this.continue, this)];
+            this.estocasticos[1].visible = false;
+        }
     },
+
 };

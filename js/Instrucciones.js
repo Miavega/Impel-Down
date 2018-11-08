@@ -4,10 +4,12 @@ GameState.Instrucciones.prototype = {
 		this.contador = 0;
 		this.buttonContinue = [this.add.button(0, 0, 'screen-howtoplay', this.updateImg, this),
 		this.add.button(0, 0, 'screen-howtoplay-2', this.updateImg, this),
+		this.add.button(0, 0, 'estocastico-1', this.updateImg, this),
 		this.add.button(0, 0, 'ACTO-1', this.startGame, this)
 		];
 		this.buttonContinue[1].visible = false;
 		this.buttonContinue[2].visible = false;
+		this.buttonContinue[3].visible = false;
 	},
 	updateImg: function () {
 		if (this.contador == 0) {
@@ -17,6 +19,10 @@ GameState.Instrucciones.prototype = {
 		else if (this.contador == 1) {
 			this.buttonContinue[1].visible = false;
 			this.buttonContinue[2].visible = true;
+		}
+		else if (this.contador == 2) {
+			this.buttonContinue[2].visible = false;
+			this.buttonContinue[3].visible = true;
 		}
 		this.contador++;
 	},

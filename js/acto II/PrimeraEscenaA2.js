@@ -62,18 +62,26 @@ GameState.PrimeraEscenaA2.prototype = {
         this.add.sprite(0, 0, 'barraProgreso');
 
         //SE INICIALIZAN MEDIDORES
-        this.medidorAgua = new StatusBar(this.game, 0, 0);
-        this.medidorComida = new StatusBar(this.game, 135, 0);
-        this.medidorVida = new StatusBar(this.game, 270);
-        this.medidorSocial = new StatusBar(this.game, 405);
+        this.medidorAgua = new StatusBar(this.game, 0, 15);
+        this.medidorComida = new StatusBar(this.game, 135, 15);
+        this.medidorVida = new StatusBar(this.game, 270), 15;
+        this.medidorSocial = new StatusBar(this.game, 405, 15);
 
         this.medidorAgua.setValor(50);
         this.medidorComida.setValor(50);
         this.medidorSocial.setValor(50);
         this.medidorVida.setValor(50);
 
+        this.textMedidorAgua = this.add.text(35, 50, 100 - this.medidorAgua.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorComida = this.add.text(175, 40, 100 - this.medidorComida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorVida = this.add.text(305, 45, 100 - this.medidorVida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorSocial = this.add.text(445, 35, 100 - this.medidorSocial.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
+
+        //SOBREVIVIENTE (MCGREGOR = 0, JEFF = 1, BETTY = 2)
+        this.sobreviviente = 0;
 
     },
     //TEXTO
@@ -104,18 +112,20 @@ GameState.PrimeraEscenaA2.prototype = {
             this.buttonPress = 0;
         }
     },
-    updateMedidorDisminuir(medidor, rangoa, rangob) {
-        if (this.auxMedidor) {
+    updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
+        if (this.auxMedidorDisminuye) {
             this.numero = Math.floor((Math.random() * rangoa) + rangob);
-            medidor.setValor(this.numero);  
+            medidor.setValor(this.numero);
             this.auxMedidorDisminuye = false;
+            texto.setText(100 - medidor.getValor() + "%");
         }
     },
-    updateMedidorAumentar(medidor, rangoa, rangob) {
-        if (this.auxMedidor) {
+    updateMedidorAumentar(medidor, rangoa, rangob, texto) {
+        if (this.auxMedidorAumenta) {
             this.numero = (Math.floor((Math.random() * rangoa) + rangob) * -1);
             medidor.setValor(this.numero);
             this.auxMedidorAumenta = false;
+            texto.setText(100 - medidor.getValor() + "%");
         }
     },
     callEscena311o312: function () {
@@ -154,6 +164,11 @@ GameState.PrimeraEscenaA2.prototype = {
         this.escena = 5;
         this.clearText();
     },
+    startGame: function () {
+        //CAMBIO DE ESTADO A JUEGO
+        this.game.state.start('PrimeraEscenaA3', true, false, this.decisionA, this.sobreviviente, this.medidorAgua.getValor(),
+            this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor());
+    },
     update: function () {
         //ESCENA INICIAL
         if (this.escena == 0) {
@@ -166,14 +181,14 @@ GameState.PrimeraEscenaA2.prototype = {
                 ];
                 this.textA.events.onInputUp.add(this.callEscena311o312, this);
                 this.textB.events.onInputUp.add(this.callEscena311o312, this);
-                this.updateMedidorAumentar(this.medidorVida, 10, 1);
+                this.updateMedidorAumentar(this.medidorVida, 10, 1, this.textMedidorVida);
                 //TOMÓ EL FOLLETO
             } else {
                 this.escenaImg[3].visible = true;
                 this.textA.events.onInputUp.add(this.callEscena321o322, this);
                 this.textB.events.onInputUp.add(this.callEscena321o322, this);
                 this.dialogo = ["ARTHUR: Sophie quédate conmigo, todo estará bien"];
-                this.updateMedidorDisminuir(this.medidorVida, 5, 1);
+                this.updateMedidorDisminuir(this.medidorVida, 5, 1, this.textMedidorVida);
             }
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textA.setText("Continuar");
@@ -184,6 +199,7 @@ GameState.PrimeraEscenaA2.prototype = {
         }
         //ESCENA 3.1.1
         else if (this.escena == 1) {
+            this.sobreviviente = 0;
             this.escenaImg[0].visible = false;
             this.escenaImg[3].visible = false;
             this.escenaImg[1].visible = true;
@@ -199,6 +215,7 @@ GameState.PrimeraEscenaA2.prototype = {
         }
         //ESCENA 3.1.2
         else if (this.escena == 2) {
+            this.sobreviviente = 1;
             this.escenaImg[0].visible = false;
             this.escenaImg[3].visible = false;
             this.escenaImg[2].visible = true;
@@ -214,6 +231,7 @@ GameState.PrimeraEscenaA2.prototype = {
         }
         //ESCENA 3.2.1
         else if (this.escena == 3) {
+            this.sobreviviente = 1;
             this.escenaImg[0].visible = false;
             this.escenaImg[3].visible = false;
             this.escenaImg[2].visible = true;
@@ -229,6 +247,7 @@ GameState.PrimeraEscenaA2.prototype = {
         }
         //ESCENA 3.2.2
         else if (this.escena == 4) {
+            this.sobreviviente = 2;
             this.escenaImg[0].visible = false;
             this.escenaImg[3].visible = false;
             this.escenaImg[4].visible = true;
@@ -244,7 +263,10 @@ GameState.PrimeraEscenaA2.prototype = {
         }
         //ESCENA ACTO III
         else if (this.escena == 5) {
-            alert("continua el acto III")
+            this.escenaImg[1].visible = false;
+            this.escenaImg[2].visible = false;
+            this.escenaImg[4].visible = false;
+            this.add.button(0, 0, 'ACTO-3', this.startGame, this);
         }
     },
 

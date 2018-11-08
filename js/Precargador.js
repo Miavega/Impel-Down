@@ -14,6 +14,11 @@ GameState.Precargador.prototype = {
         this.load.image('title', 'assets/titulo1.png');
         this.load.image('overlay', 'assets/Overlay-V0.png');
 
+        //PROCESOS ESTOCÁSTICOS
+        this.load.image('estocastico-1', 'assets/estocastico-1.png');
+        this.load.image('estocastico-2', 'assets/estocastico-2.png');
+        this.load.image('estocastico-3', 'assets/estocastico-3.jpg');
+
         //ESCENAS
         //ACTO I
         this.load.image('ACTO-1', 'assets/escenas/acto I/ACTO-1.png');

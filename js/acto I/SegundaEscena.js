@@ -82,15 +82,20 @@ GameState.SegundaEscena.prototype = {
         //SE CONFIGURAN TODAS LAS VARIABLES DE MEDICION Y LAS BARRAS PARA EL ESTADO DE LAS VARIABLES;
         this.add.sprite(0, 0, 'barraProgreso');
 
-        this.medidorAgua = new StatusBar(this.game, 0, 0);
-        this.medidorComida = new StatusBar(this.game, 135, 0);
-        this.medidorVida = new StatusBar(this.game, 270);
-        this.medidorSocial = new StatusBar(this.game, 405);
+        this.medidorAgua = new StatusBar(this.game, 0, 15);
+        this.medidorComida = new StatusBar(this.game, 135, 15);
+        this.medidorVida = new StatusBar(this.game, 270, 15);
+        this.medidorSocial = new StatusBar(this.game, 405, 15);
 
         this.medidorAgua.setValor(this.valorAgua);
         this.medidorComida.setValor(this.valorComida);
         this.medidorVida.setValor(this.valorVida);
         this.medidorSocial.setValor(this.valorSocial);
+
+        this.textMedidorAgua = this.add.text(35, 50, 100 - this.medidorAgua.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorComida = this.add.text(175, 40, 100 - this.medidorComida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorVida = this.add.text(305, 45, 100 - this.medidorVida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorSocial = this.add.text(445, 35, 100 - this.medidorSocial.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
 
         //Agregamos el Overlay
         this.add.sprite(0, 0, 'overlay');
@@ -215,18 +220,20 @@ GameState.SegundaEscena.prototype = {
         this.escena = 8;
         this.clearText();
     },
-    updateMedidorDisminuir(medidor, rangoa, rangob) {
+    updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidor) {
             this.numero = Math.floor((Math.random() * rangoa) + rangob);
             medidor.setValor(this.numero);
             this.auxMedidor = false;
+            texto.setText(100 - medidor.getValor() + "%");
         }
     },
-    updateMedidorAumentar(medidor, rangoa, rangob) {
+    updateMedidorAumentar(medidor, rangoa, rangob, texto) {
         if (this.auxMedidor) {
             this.numero = (Math.floor((Math.random() * rangoa) + rangob) * -1);
             medidor.setValor(this.numero);
             this.auxMedidor = false;
+            texto.setText(100 - medidor.getValor() + "%");
         }
     },
     update: function () {
@@ -282,7 +289,7 @@ GameState.SegundaEscena.prototype = {
                 "SOPHIE: Gracias, ¿Estás bien?, tienes cara de haber visto un \n gremlin en la ventana del avión.",
                 "ARTHUR: Solo es ansiedad, toma tu jugo."
             ];
-            this.updateMedidorAumentar(this.medidorSocial, 5, 5);
+            this.updateMedidorAumentar(this.medidorSocial, 5, 5, this.textMedidorSocial);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA.setText("Continuar");
                 this.clearText();

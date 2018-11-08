@@ -52,15 +52,20 @@ GameState.PrimeraEscena.prototype = {
         this.add.sprite(0, 0, 'barraProgreso');
 
         //SE INICIALIZAN MEDIDORES
-        this.medidorAgua = new StatusBar(this.game, 0, 0);
-        this.medidorComida = new StatusBar(this.game, 135, 0);
-        this.medidorVida = new StatusBar(this.game, 270);
-        this.medidorSocial = new StatusBar(this.game, 405);
+        this.medidorAgua = new StatusBar(this.game, 0, 15);
+        this.medidorComida = new StatusBar(this.game, 135, 15);
+        this.medidorVida = new StatusBar(this.game, 270, 15);
+        this.medidorSocial = new StatusBar(this.game, 405, 15);
 
         this.medidorAgua.setValor(0);
         this.medidorComida.setValor(0);
         this.medidorSocial.setValor(0);
         this.medidorVida.setValor(0);
+
+        this.textMedidorAgua = this.add.text(35, 50, 100 - this.medidorAgua.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorComida = this.add.text(175, 40, 100 - this.medidorComida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorVida = this.add.text(305, 45, 100 - this.medidorVida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
+        this.textMedidorSocial = this.add.text(445, 35, 100 - this.medidorSocial.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
 
         //Agregamos el Overlay
         this.add.sprite(0, 0, 'overlay');
@@ -111,6 +116,7 @@ GameState.PrimeraEscena.prototype = {
             this.numero = Math.floor((Math.random() * 10) + 25);
             medidor.setValor(this.numero);
             this.auxMedidor = false;
+            this.textMedidorSocial.setText(100 - medidor.getValor() + "%");
         }
     },
     update: function () {
