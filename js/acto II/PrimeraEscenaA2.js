@@ -64,7 +64,7 @@ GameState.PrimeraEscenaA2.prototype = {
         //SE INICIALIZAN MEDIDORES
         this.medidorAgua = new StatusBar(this.game, 0, 15);
         this.medidorComida = new StatusBar(this.game, 135, 15);
-        this.medidorVida = new StatusBar(this.game, 270), 15;
+        this.medidorVida = new StatusBar(this.game, 270, 15);
         this.medidorSocial = new StatusBar(this.game, 405, 15);
 
         this.medidorAgua.setValor(50);
@@ -203,12 +203,11 @@ GameState.PrimeraEscenaA2.prototype = {
             this.escenaImg[0].visible = false;
             this.escenaImg[3].visible = false;
             this.escenaImg[1].visible = true;
-            this.dialogo = ["SOPHIE: Sophie: Papá, el aún respira.", "ARTHUR: Él estaba sentado frente a nosotros"];
+            this.dialogo = ["SOPHIE: Papá, el aún respira.", "ARTHUR: Él estaba sentado frente a nosotros"];
             this.textOptionA.events.onInputUp.add(this.callActoIII, this);
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA.setText("a) Tomar el arma del agente McGregor y despertarlo");
-                this.textOptionB.setText("b) Despertar al agente McGregor");
                 this.clearText();
                 this.updateText();
             }
@@ -224,7 +223,6 @@ GameState.PrimeraEscenaA2.prototype = {
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
-                this.textOptionB.setText("b) Ayudar a Jeff");
                 this.clearText();
                 this.updateText();
             }
@@ -240,7 +238,6 @@ GameState.PrimeraEscenaA2.prototype = {
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA.setText("a) Tomar el reproductor y ayudar a Jeff");
-                this.textOptionB.setText("b) Ayudar a Jeff");
                 this.clearText();
                 this.updateText();
             }
@@ -256,7 +253,6 @@ GameState.PrimeraEscenaA2.prototype = {
             this.textOptionB.events.onInputUp.add(this.callActoIII, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA.setText("a) Tomar el bolso y ayudar a Betty");
-                this.textOptionB.setText("b) Ayudar a Betty");
                 this.clearText();
                 this.updateText();
             }

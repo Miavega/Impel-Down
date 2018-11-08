@@ -7,9 +7,12 @@ class StatusBar extends Phaser.Group {
         this.bar.height = 0;
     }
     setValor(v) {
-        if (v >= 0) {
-            this.valor = (v - this.valor);
-        } else {
+        if (this.valor + v > 100) {
+            this.valor = 100;
+        } else if (this.valor + v < 0) {
+            this.valor = 0;
+
+        }else{
             this.valor = (this.valor + v);
         }
         this.bar.height = 78 * (this.valor/100);

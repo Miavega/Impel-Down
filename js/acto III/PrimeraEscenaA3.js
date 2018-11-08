@@ -50,6 +50,12 @@ GameState.PrimeraEscenaA3.prototype = {
         this.escena = 0;
         this.auxMedidorAumenta = true;
         this.auxMedidorDisminuye = true;
+        //Variable para saber si dio medicina
+        this.darMedicina = false;
+
+        //VSE DECLARAN LAS VARIABLES QUE LLEVAN LA CUENTA DE LA VIDA DEL SOBREVIVIENTE, EL BOTIQUIN Y LA MEDICINA
+        this.medicina = 3;
+        this.vidaSobreviviente = 3;
 
         //CONFIGURACIÓN DEL TECLADO
         this.keys = this.game.input.keyboard.createCursorKeys();
@@ -66,7 +72,7 @@ GameState.PrimeraEscenaA3.prototype = {
         //SE INICIALIZAN MEDIDORES
         this.medidorAgua = new StatusBar(this.game, 0, 15);
         this.medidorComida = new StatusBar(this.game, 135, 15);
-        this.medidorVida = new StatusBar(this.game, 270), 15;
+        this.medidorVida = new StatusBar(this.game, 270, 15);
         this.medidorSocial = new StatusBar(this.game, 405, 15);
 
         this.medidorAgua.setValor(this.valorAgua);
@@ -129,7 +135,8 @@ GameState.PrimeraEscenaA3.prototype = {
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
-        this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
+        this.game.state.start('SegundaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
+            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor());
     },
     callEscena41: function () {
         this.updateMedidorAumentar(this.medidorSocial, 10, 1, this.textMedidorSocial);
@@ -139,8 +146,19 @@ GameState.PrimeraEscenaA3.prototype = {
         this.clearText();
     },
     callEscena5: function () {
+        if(this.darMedicina){
+            this.vidaSobreviviente--;
+            this.darMedicina = false;
+        }
         this.updateMedidorDisminuir(this.medidorSocial, 10, 1, this.textMedidorSocial);
         this.startGame();
+    },
+    callEscena5Medicina: function(){
+        if(this.darMedicina){
+            this.updateMedidorAumentar(this.medidorSocial,0,5,this.textMedidorSocial);
+            this.medicina--;
+            this.startGame();
+        }
     },
     update: function () {
         if (this.escena == 0) {
@@ -158,11 +176,25 @@ GameState.PrimeraEscenaA3.prototype = {
             }
         }
         else if (this.escena == 1) {
+            this.escenaImg[0].visible = false;
+            this.escenaImg[1].visible = true;
+            this.dialogo = ["ARTHUR: Te dejaré lejos de la orilla, tengo que buscar a mi hija."
+                ,this.nombre+": Tranquilo, déjame junto a ese árbol, estaré bien.",
+            "ARTHUR: Aquí estás.",this.nombre+": Gracias. Espero que encuentres a tu hija.",
+            "ARTHUR: Sé que ella está bien, ahora vuelvo."];
+            this.textOptionA.events.onInputUp.add(this.callEscena5Medicina, this);
+            this.textOptionB.events.onInputUp.add(this.callEscena5, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA.setText("a) Ayudar a Sobreviviente y dejarlo lejos de la orilla");
-                this.textOptionB.setText("Ir en busca de Sophie");
-                this.clearText();
-                this.updateText();
+                if(this.decisionA) {
+                    this.darMedicina = true;
+                    this.textOptionA.setText("a) Dar medicina");
+                    this.textOptionB.setText("b) Guardar medicina");
+                    this.auxMedidorAumenta = true;
+                    this.clearText();
+                    this.updateText();
+                }else{
+                    this.textOptionB.setText("a) Continuar");
+                }
             }
         }
     }

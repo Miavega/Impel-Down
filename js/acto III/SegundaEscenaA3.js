@@ -1,30 +1,32 @@
-GameState.PrimeraEscena = function (game) { };
-GameState.PrimeraEscena.prototype = {
+GameState.SegundaEscenaA3 = function (game) { };
+GameState.SegundaEscenaA3.prototype = {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial) {
+        this.sobreviviente = sobreviviente;
+        this.medicina = medicina;
+        this.vidaSobreviviente = vidaSobreviviente;
+        this.valorAgua = valorAgua;
+        this.valorComida = valorComida;
+        this.valorVida = valorVida;
+        this.valorSocial = valorSocial;
+    },
     create: function () {
-        //DECLARAMOS EL FONDO Y EL SPRITE DEL AVIÓN
-        this.screen = this.add.sprite(0, 0, 'screen-sky');
-
         //DECLARAMOS LAS ESCENAS
         this.escenaImg = []
-        this.escenaImg = [this.add.sprite(0, 0, 'A1-1'), this.add.sprite(0, 0, 'A1-1.1')];
+        this.escenaImg = [this.add.sprite(0, 0, 'A3-5')];
 
-        this.escenaImg[1].visible = false;
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["ARTHUR: °No puedo creer que finalmente haya hecho este viaje, " +
-            "\n ¿qué pensará Sophie de todo esto?°"];
+        this.dialogo = ["ARTHUR: ¡Sophie!", "SOPHIE: ¡Papá!", "-Se abrazan-",
+        "ARTHUR: Sabía que te encontraría, ¿Estás bien, estás herida?", "SOPHIE: Solo algo de mareo, pero creo que ella necesita ayuda.",
+        "ARTHUR: Soy Arthur, déjame ver tu herida", "ÁMBER: Soy Ámber, no creo que sea nada grave."];
 
-        //DECLARAMOS TIPO DE LETRA Y TODO ESO PARA EL CONTADOR Y EL PUNTAJE
-        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#ffffff" });
-        this.textOptionA = this.add.text(32, 750, '', { font: "18px Play", fill: "#ffffff" });
-        this.textOptionB = this.add.text(32, 780, '', { font: "18px Play", fill: "#ffffff" });
+        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000000" });
+        this.textOptionA = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
+        this.textOptionB = this.add.text(32, 780, '', { font: "18px Play", fill: "#000000" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
         this.textOptionA.inputEnabled = true;
         this.textOptionB.inputEnabled = true;
-
-        this.textOptionA.events.onInputUp.add(this.upA, this);
-        this.textOptionB.events.onInputUp.add(this.upB, this);
 
         //CONFIGURACIÓN DEL TEXTO
         this.line = [];
@@ -37,7 +39,14 @@ GameState.PrimeraEscena.prototype = {
 
         this.buttonPress = 0;
         this.escena = 0;
-        this.auxMedidor = true;
+        this.auxMedidorAumenta = true;
+        this.auxMedidorDisminuye = true;
+        //Variable para saber si dio medicina
+        this.darMedicina = false;
+
+        //SE INICIALIZA EL CONTADOR DEL BOTIQUIN Y LA VIDA DE AMBER
+        this.botiquin = 3;
+        this.vidaAmber = 3;
 
         //CONFIGURACIÓN DEL TECLADO
         this.keys = this.game.input.keyboard.createCursorKeys();
@@ -57,17 +66,17 @@ GameState.PrimeraEscena.prototype = {
         this.medidorVida = new StatusBar(this.game, 270, 15);
         this.medidorSocial = new StatusBar(this.game, 405, 15);
 
-        this.medidorAgua.setValor(0);
-        this.medidorComida.setValor(0);
-        this.medidorSocial.setValor(0);
-        this.medidorVida.setValor(0);
-
+        this.medidorAgua.setValor(this.valorAgua);
+        this.medidorComida.setValor(this.valorComida);
+        this.medidorSocial.setValor(this.valorSocial);
+        this.medidorVida.setValor(this.valorVida);
+        
         this.textMedidorAgua = this.add.text(35, 50, 100 - this.medidorAgua.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
         this.textMedidorComida = this.add.text(175, 40, 100 - this.medidorComida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
         this.textMedidorVida = this.add.text(305, 45, 100 - this.medidorVida.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
         this.textMedidorSocial = this.add.text(445, 35, 100 - this.medidorSocial.getValor() + "%", { font: "18px Play", fill: "#ffffff" });
 
-        //Agregamos el Overlay
+        //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
 
     },
@@ -99,58 +108,42 @@ GameState.PrimeraEscena.prototype = {
             this.buttonPress = 0;
         }
     },
-    upA: function () {
-        this.textOptionA.setText("");
-        this.textOptionB.setText("");
-        this.escena++;
-        this.clearText();
-        this.wordIndex = 0;
-        this.lineIndex = 0;
-    },
-    upB: function () {
-        this.textOptionA.setText("");
-        this.textOptionB.setText("");
-        this.escena += 2;
-        this.clearText();
-        this.wordIndex = 0;
-        this.lineIndex = 0;
-    },
-    updateMedidorSocial(medidor) {
-        if (this.auxMedidor) {
-            this.numero = Math.floor((Math.random() * 10) + 25);
+    updateMedidorAumentar(medidor, rangoa, rangob, texto) {
+        if (this.auxMedidorAumenta) {
+            this.numero = (Math.floor((Math.random() * rangoa) + rangob) * -1);
             medidor.setValor(this.numero);
-            this.auxMedidor = false;
-            this.textMedidorSocial.setText(100 - medidor.getValor() + "%");
+            this.auxMedidorAumenta = false;
+            texto.setText(100 - medidor.getValor() + "%");
         }
+    },
+    startGame: function () {
+        //CAMBIO DE ESTADO A JUEGO
+        alert("Siguiente escena")
+        //this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
+    },
+    callEscena6: function () {
+        this.vidaAmber--;
+        alert(this.vidaAmber)
+        this.startGame();
+    },
+    callEscena6Botiquin: function(){
+        this.updateMedidorAumentar(this.medidorSocial,10,1,this.textMedidorSocial);
+        this.botiquin--;
+        alert(this.botiquin);
+        this.startGame();
     },
     update: function () {
-        //COMIENZA EL JUEGO, NO SE HA TOMADO NINGUNA DECISIÓN
         if (this.escena == 0) {
+            this.textOptionA.events.onInputUp.add(this.callEscena6Botiquin, this);
+            this.textOptionB.events.onInputUp.add(this.callEscena6, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.clearText();
-                this.updateText();
-                this.textOptionA.setText("a) Preguntar a Sophie por el viaje.");
-                this.textOptionB.setText("b) Dejar que Sophie siga durmiendo.");
-            }
-        }
-        else if (this.escena == 1) {
-            this.escenaImg[0].visible = false;
-            this.escenaImg[1].visible = true;
-            this.dialogo = ["SOPHIE: ¿Que pasa?", "ARTHUR: Nada, pensé que querrías hablar del viaje, \n tu madre estará contenta de verte.",
-                "SOPHIE: Sabes que odio que hayas tomado ésta decisión.", "SOPHIE: zZzZz"
-            ];
-            this.updateMedidorSocial(this.medidorSocial);
-            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA.setText("Continuar");
-                this.textOptionB.setText("");
+                this.textOptionA.setText("a) Hacer curación a Ámber");
+                this.textOptionB.setText("b) Guardar vendajes para otra ocasión");
                 this.clearText();
                 this.updateText();
             }
         }
-        else if (this.escena = 2) {
-            this.game.state.start('SegundaEscena', false, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
-                this.medidorVida.getValor(), this.medidorSocial.getValor());
-        }
-    },
+
+    }
 
 };

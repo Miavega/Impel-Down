@@ -140,6 +140,8 @@ GameState.SegundaEscena.prototype = {
         this.decision = 0;
         this.escena = 1;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena211: function () {
         this.textOptionDecisionA.setText("");
@@ -150,6 +152,8 @@ GameState.SegundaEscena.prototype = {
         this.textOptionBDecisionB.setText("");
         this.escena = 3;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena212: function () {
         this.textOptionDecisionA.setText("");
@@ -161,6 +165,8 @@ GameState.SegundaEscena.prototype = {
         this.auxMedidor = true;
         this.escena = 4;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena2121: function () {
         this.textOptionDecisionA.setText("");
@@ -174,6 +180,8 @@ GameState.SegundaEscena.prototype = {
         this.decisionB = true;
         this.escena = 5;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena2122: function () {
         this.textOptionDecisionA.setText("");
@@ -187,6 +195,8 @@ GameState.SegundaEscena.prototype = {
         this.decisionB = false;
         this.escena = 6;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena21211: function () {
         this.textOptionDecisionA.setText("");
@@ -197,6 +207,8 @@ GameState.SegundaEscena.prototype = {
         this.textOptionBDecisionB.setText("");
         this.escena = 7;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena22: function () {
         this.textOptionDecisionA.setText("");
@@ -209,6 +221,8 @@ GameState.SegundaEscena.prototype = {
         this.decision = 1;
         this.escena = 2;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     callEscena23: function () {
         this.textOptionDecisionA.setText("");
@@ -219,6 +233,8 @@ GameState.SegundaEscena.prototype = {
         this.textOptionBDecisionB.setText("");
         this.escena = 8;
         this.clearText();
+        this.wordIndex = 0;
+        this.lineIndex = 0;
     },
     updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidor) {
