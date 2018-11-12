@@ -81,6 +81,18 @@ GameState.Precargador.prototype = {
         this.load.image('TileMap', 'assets/escenas/recoleccion/tileset-shinygold2.png');
         this.load.image('Arthur', 'assets/escenas/recoleccion/characterGreen.png');
 
+        //ACTO IV
+        this.load.image('ACTO-4', 'assets/escenas/acto IV/ACTO-4.png');
+        this.load.image('A3-14', 'assets/escenas/acto IV/A3-14.png');
+        this.load.image('A3-15', 'assets/escenas/acto IV/A3-15.png');
+        this.load.image('A3-16', 'assets/escenas/acto IV/A3-16.png');
+        this.load.image('A3-17', 'assets/escenas/acto IV/A3-17.png');
+        this.load.image('A3-18', 'assets/escenas/acto IV/A3-18.png');
+        this.load.image('A3-19', 'assets/escenas/acto IV/A3-19.png');
+        this.load.tilemap('MapaFondoA4', 'assets/escenas/recoleccion/Mapa2_Capa de Patrones 1.csv', null, Phaser.Tilemap.CSV);
+        this.load.tilemap('MapaFondoA42', 'assets/escenas/recoleccion/Mapa2_Capa de patrones 2.csv', null, Phaser.Tilemap.CSV);
+
+
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);
         this.load.spritesheet('airplane', 'assets/airplane.png', 150, 100, 10);

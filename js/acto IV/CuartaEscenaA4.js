@@ -1,34 +1,28 @@
-GameState.SegundaEscenaA3 = function (game) { };
-GameState.SegundaEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial) {
-        this.sobreviviente = sobreviviente;
-        this.medicina = medicina;
-        this.vidaSobreviviente = vidaSobreviviente;
+GameState.CuartaEscenaA4 = function (game) { };
+GameState.CuartaEscenaA4.prototype = {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
+        this.vidaAmber = vidaAmber;
+        this.medicina = medicina;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
-        this.escenaImg = [this.add.sprite(0, 0, 'A3-5')];
-
+        this.escenaImg = [this.add.sprite(0, 0, 'A4-18'), this.add.sprite(0, 0, 'A4-19')];
+        this.escenaImg[1].visible = false;
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["ARTHUR: ¡Sophie!", "SOPHIE: ¡Papá!", "-Se abrazan-",
-            "ARTHUR: Sabía que te encontraría, ¿Estás bien, estás herida?", "SOPHIE: Solo algo de mareo, pero creo que ella necesita ayuda.",
-            "ARTHUR: Soy Arthur, déjame ver tu herida", "ÁMBER: Soy Ámber, no creo que sea nada grave."];
+        this.dialogo = ["ARTHUR: Con esto podremos terminar la balsa.", "ÁMBER: ¿Estás seguro que esto funcionará?",
+            "ARTHUR: Es nuestra mejor opción.", "SOPHIE: Yo sé que lo vamos a lograr."
+        ];
 
-        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000000" });
-        this.textOptionA = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
-        this.textOptionB = this.add.text(32, 780, '', { font: "18px Play", fill: "#000000" });
-        this.textOptionA2 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
+        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000" });
+        this.textOption = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
-        this.textOptionA.inputEnabled = true;
-        this.textOptionB.inputEnabled = true;
-        this.textOptionA2.inputEnabled = true;
+        this.textOption.inputEnabled = true;
 
         //CONFIGURACIÓN DEL TEXTO
         this.line = [];
@@ -40,19 +34,9 @@ GameState.SegundaEscenaA3.prototype = {
         this.lineDelay = 400;
 
         this.buttonPress = 0;
-        this.escena = 0;
         this.auxMedidorAumenta = true;
         this.auxMedidorDisminuye = true;
-        //Variable para saber si dio medicina
-        this.darMedicina = false;
-
-        //SE INICIALIZA EL CONTADOR DEL BOTIQUIN Y LA VIDA DE AMBER
-        if(this.sobreviviente === 2) {
-            this.botiquin = 3;
-        }else{
-            this.botiquin = 0;
-        }
-        this.vidaAmber = 3;
+        this.escena = 0;
 
         //CONFIGURACIÓN DEL TECLADO
         this.keys = this.game.input.keyboard.createCursorKeys();
@@ -84,9 +68,6 @@ GameState.SegundaEscenaA3.prototype = {
 
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
-
-        //INICIAR LA ESCENA TENIENDO EN CUENTA SI HAY BOTIQUIN O NO
-        this.iniciarEscena();
     },
     //TEXTO
     nextLine: function () {
@@ -116,55 +97,41 @@ GameState.SegundaEscenaA3.prototype = {
             this.buttonPress = 0;
         }
     },
-    updateMedidorAumentar(medidor, rangoa, rangob, texto) {
-        if (this.auxMedidorAumenta) {
-            this.numero = (Math.floor((Math.random() * rangoa) + rangob) * -1);
-            medidor.setValor(this.numero);
-            this.auxMedidorAumenta = false;
-            texto.setText(100 - medidor.getValor() + "%");
-        }
+    callEscena19: function () {
+        this.escena = 1;
+        this.clearText();
+        this.textOption.setText("");
+    },
+    callActoV: function () {
+        this.escenaImg[1].visible = false;
+        this.add.button(0, 0, 'ACTO-5', this.startGame, this)
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
-        this.game.state.start('TerceraEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
-            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
-    },
-    callEscena6: function () {
-        this.vidaAmber--;
-        this.startGame();
-    },
-    callEscena6Botiquin: function () {
-        this.updateMedidorAumentar(this.medidorSocial, 10, 1, this.textMedidorSocial);
-        this.botiquin--;
-        this.startGame();
-    },
-    iniciarEscena(){
-        if(this.botiquin === 0){
-            this.escena = 1;
-        }else{
-            this.escena = 0;
-        }
+        alert("ACTO V")
     },
     update: function () {
         if (this.escena == 0) {
-            this.textOptionA.events.onInputUp.add(this.callEscena6Botiquin, this);
-            this.textOptionB.events.onInputUp.add(this.callEscena6, this);
+            this.textOption.events.onInputUp.add(this.callEscena19, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA.setText("a) Hacer curación a Ámber");
-                this.textOptionB.setText("b) Guardar vendajes para otra ocasión");
+                this.textOption.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
         }
-        if (this.escena === 1) {
-            this.textOptionA2.events.onInputUp.add(this.callEscena6, this);
+        else if (this.escena == 1) {
+            this.escenaImg[0].visible = false;
+            this.escenaImg[1].visible = true;
+            this.dialogo = ["ARTHUR: Tomen todo lo que crean que nos pueda ayudar, hice éstos remos con partes del avión, " +
+                "así podremos guiar la balsa hacía la isla.", "ÁMBER: Creo que estoy lista, todo saldrá bien, lo sé." +
+            "SOPHIE: Era en serio lo de ir a casa tú y yo.", "ARTHUR: Solo si tú quieres.", "SOPHIE: Ya sabes la respuesta."
+            ];
+            this.textOption.events.onInputUp.add(this.callActoV, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA2.setText("a) Continuar");
+                this.textOption.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
         }
     }
-
 };

@@ -13,7 +13,7 @@ GameState.QuintaEscenaA3.prototype = {
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
+        this.escenaImg = [];
         if (this.sobreviviente == 0) {
             this.escenaImg = [this.add.sprite(0, 0, 'A3-6.A'), this.add.sprite(0, 0, 'A3-10')];
             this.nombre = "McGREGOR";
@@ -139,6 +139,7 @@ GameState.QuintaEscenaA3.prototype = {
     callEscena10A() {
         this.updateMedidorAumentar(this.medidorSocial, 0, 10, this.textMedidorSocial);
         this.medicina--;
+        this.verificarMedicina();
         this.clearText();
         this.textOptionA.setText("");
         this.textOptionB.setText("");
@@ -155,6 +156,7 @@ GameState.QuintaEscenaA3.prototype = {
     },
     callEscena10B() {
         this.vidaSobreviviente--;
+        this.verificarVariables();
         this.clearText();
         this.textOptionA.setText("");
         this.textOptionB.setText("");
@@ -189,6 +191,17 @@ GameState.QuintaEscenaA3.prototype = {
             medidor.setValor(this.numero);
             this.auxMedidorAumenta = false;
             texto.setText(100 - medidor.getValor() + "%");
+        }
+    },
+    verificarMedicina(){
+      if(this.medicina === 0){
+          alert("Termina el juego")
+      }
+    },
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.vidaSobreviviente === 0 || this.medidorAgua.getValor() === 0
+            || this.medidorComida.getValor() === 0 || this.medidorVida.getValor() === 0 || this.medidorSocial.getValor() === 0) {
+            alert("Aca termina el juego");
         }
     },
     update: function () {

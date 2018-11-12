@@ -13,7 +13,7 @@ GameState.SextaEscenaA3.prototype = {
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
+        this.escenaImg = [];
         if (this.sobreviviente == 0) {
             this.escenaImg = [this.add.sprite(0, 0, 'A3-11.A'), this.add.sprite(0, 0, 'A3-12')];
             this.nombre = "McGREGOR";
@@ -127,11 +127,9 @@ GameState.SextaEscenaA3.prototype = {
         this.updateMedidorDisminuir(this.medidorComida, 0, 10, this.textMedidorComida);
         this.auxMedidorDisminuye = true;
         this.updateMedidorDisminuir(this.medidorAgua, 0, 10, this.textMedidorAgua);
-        alert("Escena Recoleccion")
         this.game.state.start('Recoleccion', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
             this.vidaAmber, this.botiquin);
-        //this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
     },
     updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidorDisminuye) {
@@ -155,7 +153,7 @@ GameState.SextaEscenaA3.prototype = {
         this.clearText();
         this.updateMedidorAumentar(this.medidorSocial, 0, 10, this.textMedidorSocial);
         this.medicina--;
-        alert(this.medicina)
+        this.verificarMedicina();
         this.escena = 1;
     },
     callEscena11B() {
@@ -163,7 +161,7 @@ GameState.SextaEscenaA3.prototype = {
         this.textOptionB.setText("");
         this.clearText();
         this.sobreviviente--;
-        alert(this.sobreviviente)
+        this.verificarVariables();
         this.escena = 1;
     },
     callEscena12A() {
@@ -171,7 +169,7 @@ GameState.SextaEscenaA3.prototype = {
         this.textOptionB11.setText("");
         this.clearText();
         this.medicina--;
-        this.verificarVariables();
+        this.verificarMedicina();
         this.escena = 2;
     },
     callEscena12B() {
@@ -186,6 +184,11 @@ GameState.SextaEscenaA3.prototype = {
         if (this.vidaAmber === 0 || this.vidaSobreviviente === 0 || this.medidorAgua.getValor() === 0
             || this.medidorComida.getValor() === 0 || this.medidorVida.getValor() === 0 || this.medidorSocial.getValor() === 0) {
             alert("Aca termina el juego");
+        }
+    },
+    verificarMedicina() {
+        if (this.medicina === 0) {
+            alert("Termina el juego")
         }
     },
     update: function () {

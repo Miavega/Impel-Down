@@ -1,34 +1,28 @@
-GameState.SegundaEscenaA3 = function (game) { };
-GameState.SegundaEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial) {
-        this.sobreviviente = sobreviviente;
-        this.medicina = medicina;
-        this.vidaSobreviviente = vidaSobreviviente;
+GameState.SegundaEscenaA4 = function (game) { };
+GameState.SegundaEscenaA4.prototype = {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
+        this.vidaAmber = vidaAmber;
+        this.medicina = medicina;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
-        this.escenaImg = [this.add.sprite(0, 0, 'A3-5')];
-
+        this.escenaImg = [this.add.sprite(0, 0, 'A4-16')];
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["ARTHUR: ¡Sophie!", "SOPHIE: ¡Papá!", "-Se abrazan-",
-            "ARTHUR: Sabía que te encontraría, ¿Estás bien, estás herida?", "SOPHIE: Solo algo de mareo, pero creo que ella necesita ayuda.",
-            "ARTHUR: Soy Arthur, déjame ver tu herida", "ÁMBER: Soy Ámber, no creo que sea nada grave."];
+        this.dialogo = ["ARTHUR: Si logramos construir una balsa, podremos llegar a la otra isla.",
+            "ÁMBER: ¡Por fin! Saldremos de ésta isla, ya quiero ver a mis hijos.", "ARTHUR: Lo harás, y " +
+            "tú y yo tal vez volvamos a casa.", "SOPHIE: ¿A casa?", "ARTHUR: Si, tú y yo.", "Sophie: Ahora en serio que quiero ver esa balsa."
+        ];
 
-        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000000" });
-        this.textOptionA = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
-        this.textOptionB = this.add.text(32, 780, '', { font: "18px Play", fill: "#000000" });
-        this.textOptionA2 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
+        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000" });
+        this.textOption = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
-        this.textOptionA.inputEnabled = true;
-        this.textOptionB.inputEnabled = true;
-        this.textOptionA2.inputEnabled = true;
+        this.textOption.inputEnabled = true;
 
         //CONFIGURACIÓN DEL TEXTO
         this.line = [];
@@ -40,19 +34,9 @@ GameState.SegundaEscenaA3.prototype = {
         this.lineDelay = 400;
 
         this.buttonPress = 0;
-        this.escena = 0;
         this.auxMedidorAumenta = true;
         this.auxMedidorDisminuye = true;
-        //Variable para saber si dio medicina
-        this.darMedicina = false;
-
-        //SE INICIALIZA EL CONTADOR DEL BOTIQUIN Y LA VIDA DE AMBER
-        if(this.sobreviviente === 2) {
-            this.botiquin = 3;
-        }else{
-            this.botiquin = 0;
-        }
-        this.vidaAmber = 3;
+        this.escena = 0;
 
         //CONFIGURACIÓN DEL TECLADO
         this.keys = this.game.input.keyboard.createCursorKeys();
@@ -84,9 +68,6 @@ GameState.SegundaEscenaA3.prototype = {
 
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
-
-        //INICIAR LA ESCENA TENIENDO EN CUENTA SI HAY BOTIQUIN O NO
-        this.iniciarEscena();
     },
     //TEXTO
     nextLine: function () {
@@ -116,6 +97,14 @@ GameState.SegundaEscenaA3.prototype = {
             this.buttonPress = 0;
         }
     },
+    updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
+        if (this.auxMedidorDisminuye) {
+            this.numero = Math.floor((Math.random() * rangoa) + rangob);
+            medidor.setValor(this.numero);
+            this.auxMedidorDisminuye = false;
+            texto.setText(100 - medidor.getValor() + "%");
+        }
+    },
     updateMedidorAumentar(medidor, rangoa, rangob, texto) {
         if (this.auxMedidorAumenta) {
             this.numero = (Math.floor((Math.random() * rangoa) + rangob) * -1);
@@ -124,47 +113,20 @@ GameState.SegundaEscenaA3.prototype = {
             texto.setText(100 - medidor.getValor() + "%");
         }
     },
-    startGame: function () {
-        //CAMBIO DE ESTADO A JUEGO
-        this.game.state.start('TerceraEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
+    callSucesoAleatorio: function () {
+        this.numeroSuceso = Math.floor((Math.random() * 5));
+        this.game.state.start('SucesosAleatorios', true, false, 1, this.medicina, 0,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
-    },
-    callEscena6: function () {
-        this.vidaAmber--;
-        this.startGame();
-    },
-    callEscena6Botiquin: function () {
-        this.updateMedidorAumentar(this.medidorSocial, 10, 1, this.textMedidorSocial);
-        this.botiquin--;
-        this.startGame();
-    },
-    iniciarEscena(){
-        if(this.botiquin === 0){
-            this.escena = 1;
-        }else{
-            this.escena = 0;
-        }
+            this.vidaAmber, 0, this.numeroSuceso, 3);
     },
     update: function () {
         if (this.escena == 0) {
-            this.textOptionA.events.onInputUp.add(this.callEscena6Botiquin, this);
-            this.textOptionB.events.onInputUp.add(this.callEscena6, this);
+            this.textOption.events.onInputUp.add(this.callSucesoAleatorio, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA.setText("a) Hacer curación a Ámber");
-                this.textOptionB.setText("b) Guardar vendajes para otra ocasión");
-                this.clearText();
-                this.updateText();
-            }
-        }
-        if (this.escena === 1) {
-            this.textOptionA2.events.onInputUp.add(this.callEscena6, this);
-            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA2.setText("a) Continuar");
+                this.textOption.setText("Continuar");
                 this.clearText();
                 this.updateText();
             }
         }
     }
-
 };

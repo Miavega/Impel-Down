@@ -13,21 +13,26 @@ GameState.SeptimaEscenaA3.prototype = {
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
+        this.escenaImg = [];
         if (this.sobreviviente === 0) {
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-13.A'), this.add.sprite(0, 0, 'A3-13.1.A'),
+            this.add.sprite(0, 0, 'A3-13.1.1.2')];
             this.nombre = "McGREGOR";
         }
         else if (this.sobreviviente === 1) {
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-13.B'), this.add.sprite(0, 0, 'A3-13.1.B'),
+            this.add.sprite(0, 0, 'A3-13.1.1.2')];
             this.nombre = "JEFF";
         }
         else if (this.sobreviviente === 2) {
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-13.C'), this.add.sprite(0, 0, 'A3-13.1.C'),
+            this.add.sprite(0, 0, 'A3-13.1.1.2')];
             this.nombre = "BETTY";
         }
 
         this.escenaImg[1].visible = false;
+        this.escenaImg[2].visible = false;
+        this.escenaImg[3].visible = false;
         //DECLARAMOS LOS DIALOGOS
         this.dialogo = ["ARTHUR: ¡Sophie! ¿Estás bien? \n¿Qué pasó?",
             "ÁMBER: No lo sé, dijo que le dolía el pecho y cayó, \npero no me dijo nada más."];
@@ -37,18 +42,19 @@ GameState.SeptimaEscenaA3.prototype = {
         this.textOptionA1 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
         this.textOptionA131 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
         this.textOptionB131 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
-        this.textOptionA11 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
-        this.textOptionB11 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
-        this.textOption12 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
+        this.textOptionA1311 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
+        this.textOptionA13111 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
+        this.textOption13112 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
+        this.textOption132 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
         this.textOptionA1.inputEnabled = true;
         this.textOptionA131.inputEnabled = true;
         this.textOptionB131.inputEnabled = true;
-        this.textOptionA11.inputEnabled = true;
-        this.textOptionB11.inputEnabled = true;
-        this.textOption12.inputEnabled = true;
-
+        this.textOptionA1311.inputEnabled = true;
+        this.textOptionA13111.inputEnabled = true;
+        this.textOption13112.inputEnabled = true;
+        this.textOption132.inputEnabled = true;
         //CONFIGURACIÓN DEL TEXTO
         this.line = [];
 
@@ -124,8 +130,8 @@ GameState.SeptimaEscenaA3.prototype = {
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
-        alert("Escena 14")
-        //this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
+        this.game.state.start('PrimeraEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
+            this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
     },
     updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidorDisminuye) {
@@ -152,15 +158,42 @@ GameState.SeptimaEscenaA3.prototype = {
     callEscena132() {
         this.escena = 2;
     },
+    callEscena13111() {
+        this.textOptionA1311.setText("");
+        this.escena = 4;
+    },
+    callEscena13112() {
+        this.updateMedidorDisminuir(this.medidorVida, 0, 10, this.textMedidorVida);
+        this.verificarVariables();
+        this.textOptionA13111.setText("");
+        this.auxMedidorDisminuye = true;
+        this.updateMedidorDisminuir(this.medidorComida, 0, 5, this.textMedidorComida);
+        this.auxMedidorDisminuye = true;
+        this.updateMedidorDisminuir(this.medidorAgua, 0, 15, this.textMedidorAgua);
+        this.escena = 5;
+    },
     verificarMedicina() {
-        if (this.medicina === 0) {
+        if (this.medicina > 0) {
             this.escena = 1;
         } else {
             this.callEscena132();
         }
     },
     callEscena1311() {
+        this.textOptionA131.setText("");
+        this.textOptionB131.setText("");
         this.escena = 3;
+    },
+    actoIV() {
+        this.escenaImg[0].visible = false;
+        this.escenaImg[1].visible = false;
+        this.escenaImg[2].visible = false;
+        this.escenaImg[3].visible = false;
+        this.add.button(0, 0, 'ACTO-4', this.startGame, this)
+    },
+    //METODO DESTINADO A MOSTRAR EL FINAL DEL JUEGO
+    finDelJuego() {
+        alert("Fin del juego.")
     },
     update: function () {
         if (this.escena == 0) {
@@ -173,8 +206,8 @@ GameState.SeptimaEscenaA3.prototype = {
         } else if (this.escena == 1) {
             this.dialogo = ["ARTHUR: °Maldición, Sophie necesita sus medicinas, \npero si se la doy los demás sabrán que las tenía\n" +
                 " y no va a ser bueno, ¿qué hago?°"];
-            this.textOptionA131.events.onInputUp.add(this.verificarMedicina, this);
-            this.textOptionB131.events.onInputUp.add(this.verificarMedicina, this);
+            this.textOptionA131.events.onInputUp.add(this.callEscena1311, this);
+            this.textOptionB131.events.onInputUp.add(this.callEscena132, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
                 this.textOptionA131.setText("a) Dar medicina a Sophie y tratar de explicar a los demás");
                 this.textOptionB131.setText("b) No dar la medicina a Sophie");
@@ -182,11 +215,53 @@ GameState.SeptimaEscenaA3.prototype = {
                 this.updateText();
             }
         } else if (this.escena == 2) {
-            alert("Escena 13.2")
+            this.escena[1].visible = false;
+            this.escena[2].visible = false;
+            this.escena[3].visible = false;
+            this.escena[0].visible = true;
+            this.dialogo = ["ARTHUR: Sophie por favor, reacciona, háblame.", "ÁMBER: Su pulso es muy débil, apenas lo siento.",
+                "Arthur: ¿Sophie? ¡Sophie! ¡Sophie! ¡Sophie!...", ".....", this.nombre + ": Lo siento mucho.", "ARTHUR: Noooooooooo"];
+            this.textOption132.events.onInputUp.add(this.finDelJuego, this);
+            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOption132.setText("a) Continuar");
+                this.clearText();
+                this.updateText();
+            }
         } else if (this.escena == 3) {
+            this.escenaImg[0].visible = false;
+            this.escenaImg[1].visible = true;
             this.dialogo = [this.nombre + ": Eres un… Sabías que Ámber y yo \nnecesitábamos medicina y la tuviste guardada\n" +
                 "todo este tiempo", "ARTHUR: Mi hija la necesitaba, cómo querías que no pensara en ella",
             this.nombre + ": Pues ahora es momento de pensar en \nnosotros también"];
+            this.textOptionA1311.events.onInputUp.add(this.callEscena13111, this);
+            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA1311.setText("a) Continuar");
+                this.clearText();
+                this.updateText();
+            }
+        } else if (this.escena == 4) {
+            this.escenaImg[1].visible = false;
+            this.escenaImg[2].visible = true;
+            this.dialogo = ["-ARTHUR pelea con " + this.nombre + " y sin querer \nlo empuja sobre unas rocas-",
+                "ÁMBER: ¡Qué hacen! Deténganse", "SOPHIE: Papá no respira, ¡no respira!", "ARTHUR: No fue mi intención, maldición"];
+            this.textOptionA13111.events.onInputUp.add(this.callEscena13112, this);
+            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOptionA13111.setText("a) Continuar");
+                this.clearText();
+                this.updateText();
+            }
+        } else if (this.escena == 5) {
+            this.escenaImg[2].visible = false;
+            this.escenaImg[3].visible = true;
+            this.dialogo = ["ÁMBER: Yo habría hecho lo mismo, \nme refiero a la medicina, es decir es tu hija, \nque no hace uno" +
+                "por los hijos", "ARTHUR: Jamás quise que pasara esto, lo lamento tanto.",
+                "ÁMBER: Ahora solo nos queda seguir juntos y sobrevivir."];
+            this.textOption13112.events.onInputUp.add(this.actoIV, this);
+            if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
+                this.textOption13112.setText("a) Continuar");
+                this.clearText();
+                this.updateText();
+            }
         }
     }
 };

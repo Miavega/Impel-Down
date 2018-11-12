@@ -139,6 +139,12 @@ GameState.SucesosAleatorios.prototype = {
             this.game.state.start('QuintaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
                 this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
                 this.vidaAmber, this.botiquin);
+        } else if (this.escenaRetorno == 2) {
+            this.game.state.start('SegundaEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
+                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
+        } else if (this.escenaRetorno == 3) {
+            this.game.state.start('TerceraEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
+                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
         }
     },
     //OPCIONES SUCESO TIPO I

@@ -1,22 +1,19 @@
-GameState.Recoleccion = function (game) { };
-GameState.Recoleccion.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
-        this.sobreviviente = sobreviviente;
-        this.medicina = medicina;
-        this.vidaSobreviviente = vidaSobreviviente;
+GameState.RecoleccionA4 = function (game) { };
+GameState.RecoleccionA4.prototype = {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
-        this.botiquin = botiquin;
+        this.medicina = medicina;
     },
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //DECLARAMOS LAS ESCENAS
-        this.map = this.game.add.tilemap('MapaFondo');
-        this.map2 = this.game.add.tilemap('MapaFondo2');
+        this.map = this.game.add.tilemap('MapaFondoA4');
+        this.map2 = this.game.add.tilemap('MapaFondoA42');
 
         this.map.addTilesetImage('TileMap');
         this.map2.addTilesetImage('TileMap');
@@ -33,7 +30,7 @@ GameState.Recoleccion.prototype = {
         this.map.setCollisionBetween(250, 250);
 
         //COLISIONES CON OBJETOS DEL MAPA
-        this.map.setCollisionBetween(8, 8);
+        //this.map.setCollisionBetween(8, 8);
 
         this.layer = this.map.createLayer(0);
         this.map2.createLayer(0);
@@ -47,7 +44,7 @@ GameState.Recoleccion.prototype = {
 
         this.game.camera.follow(this.sprite);
 
-        this.map.setTileIndexCallback(16, this.getTile, this);
+        this.map.setTileIndexCallback(10, this.getTile, this);
         this.map.setTileLocationCallback(2, 0, 1, 1, this.getTile, this);
 
         //DECLARAMOS LOS DIALOGOS
@@ -116,15 +113,14 @@ GameState.Recoleccion.prototype = {
         }
     },
     getTile: function () {
-        this.map2.fill(0, this.layer.getTileX(this.sprite.x), this.layer.getTileY(this.sprite.y), 1, 1);
-        this.map.fill(0, this.layer.getTileX(this.sprite.x), this.layer.getTileY(this.sprite.y), 1, 1);
+        this.map2.fill(11, this.layer.getTileX(this.sprite.x), this.layer.getTileY(this.sprite.y), 1, 1);
+        this.map.fill(11, this.layer.getTileX(this.sprite.x), this.layer.getTileY(this.sprite.y), 1, 1);
         this.recogidos++;
         this.recogidos--;
     },
     startGame: function () {
-        this.game.state.start('SeptimaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
-            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
+        this.game.state.start('CuartaEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
+            this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
     },
     update: function () {
         this.game.physics.arcade.collide(this.sprite, this.layer);
