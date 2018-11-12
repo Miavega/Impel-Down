@@ -1,41 +1,53 @@
-GameState.PrimeraEscenaA3 = function (game) { };
-GameState.PrimeraEscenaA3.prototype = {
-    init: function (decisionA, sobreviviente, valorAgua, valorComida, valorVida, valorSocial) {
-        this.decisionA = decisionA;
+GameState.SeptimaEscenaA3 = function (game) { };
+GameState.SeptimaEscenaA3.prototype = {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
         this.sobreviviente = sobreviviente;
+        this.medicina = medicina;
+        this.vidaSobreviviente = vidaSobreviviente;
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
+        this.vidaAmber = vidaAmber;
+        this.botiquin = botiquin;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
         this.escenaImg = []
-        if (this.sobreviviente == 0) {
+        if (this.sobreviviente === 0) {
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
             this.nombre = "McGREGOR";
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-4.A'), this.add.sprite(0, 0, 'A3-4.1.A')];
         }
-        else if (this.sobreviviente == 1) {
+        else if (this.sobreviviente === 1) {
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
             this.nombre = "JEFF";
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-4.B'), this.add.sprite(0, 0, 'A3-4.1.B')];
         }
-        else if (this.sobreviviente == 2) {
+        else if (this.sobreviviente === 2) {
+            this.escenaImg = [this.add.sprite(0, 0, 'A3-13'), this.add.sprite(0, 0, 'A3-12')];
             this.nombre = "BETTY";
-            this.escenaImg = [this.add.sprite(0, 0, 'A3-4.C'), this.add.sprite(0, 0, 'A3-4.1.C')];
         }
 
         this.escenaImg[1].visible = false;
-
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = [];
+        this.dialogo = ["ARTHUR: ¡Sophie! ¿Estás bien? \n¿Qué pasó?",
+            "ÁMBER: No lo sé, dijo que le dolía el pecho y cayó, \npero no me dijo nada más."];
 
-        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000000" });
-        this.textOptionA = this.add.text(32, 750, '', { font: "18px Play", fill: "#000000" });
-        this.textOptionB = this.add.text(32, 780, '', { font: "18px Play", fill: "#000000" });
+
+        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000" });
+        this.textOptionA1 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
+        this.textOptionA131 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
+        this.textOptionB131 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
+        this.textOptionA11 = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
+        this.textOptionB11 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
+        this.textOption12 = this.add.text(32, 780, '', { font: "18px Play", fill: "#000" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
-        this.textOptionA.inputEnabled = true;
-        this.textOptionB.inputEnabled = true;
+        this.textOptionA1.inputEnabled = true;
+        this.textOptionA131.inputEnabled = true;
+        this.textOptionB131.inputEnabled = true;
+        this.textOptionA11.inputEnabled = true;
+        this.textOptionB11.inputEnabled = true;
+        this.textOption12.inputEnabled = true;
 
         //CONFIGURACIÓN DEL TEXTO
         this.line = [];
@@ -47,15 +59,9 @@ GameState.PrimeraEscenaA3.prototype = {
         this.lineDelay = 400;
 
         this.buttonPress = 0;
-        this.escena = 0;
         this.auxMedidorAumenta = true;
         this.auxMedidorDisminuye = true;
-        //Variable para saber si dio medicina
-        this.darMedicina = false;
-
-        //VSE DECLARAN LAS VARIABLES QUE LLEVAN LA CUENTA DE LA VIDA DEL SOBREVIVIENTE, EL BOTIQUIN Y LA MEDICINA
-        this.medicina = 3;
-        this.vidaSobreviviente = 3;
+        this.escena = 0;
 
         //CONFIGURACIÓN DEL TECLADO
         this.keys = this.game.input.keyboard.createCursorKeys();
@@ -87,7 +93,6 @@ GameState.PrimeraEscenaA3.prototype = {
 
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
-
     },
     //TEXTO
     nextLine: function () {
@@ -117,6 +122,11 @@ GameState.PrimeraEscenaA3.prototype = {
             this.buttonPress = 0;
         }
     },
+    startGame: function () {
+        //CAMBIO DE ESTADO A JUEGO
+        alert("Escena 14")
+        //this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
+    },
     updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidorDisminuye) {
             this.numero = Math.floor((Math.random() * rangoa) + rangob);
@@ -133,72 +143,50 @@ GameState.PrimeraEscenaA3.prototype = {
             texto.setText(100 - medidor.getValor() + "%");
         }
     },
-    startGame: function () {
-        //CAMBIO DE ESTADO A JUEGO
-        this.game.state.start('SegundaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
-            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor());
-    },
-    callEscena41: function () {
-        this.updateMedidorAumentar(this.medidorSocial, 10, 1, this.textMedidorSocial);
-        this.textOptionA.setText("");
-        this.textOptionB.setText("");
-        this.escena = 1;
-        this.clearText();
-    },
-    callEscena5: function () {
-        if (this.darMedicina) {
-            this.vidaSobreviviente--;
-            this.darMedicina = false;
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.vidaSobreviviente === 0 || this.medidorAgua.getValor() === 0
+            || this.medidorComida.getValor() === 0 || this.medidorVida.getValor() === 0 || this.medidorSocial.getValor() === 0) {
+            alert("Aca termina el juego");
         }
-        this.updateMedidorDisminuir(this.medidorSocial, 10, 1, this.textMedidorSocial);
-        this.startGame();
     },
-    callEscena5Medicina: function () {
-        if (this.darMedicina) {
-            this.updateMedidorAumentar(this.medidorSocial, 0, 5, this.textMedidorSocial);
-            this.medicina--;
-            this.startGame();
+    callEscena132() {
+        this.escena = 2;
+    },
+    verificarMedicina() {
+        if (this.medicina === 0) {
+            this.escena = 1;
+        } else {
+            this.callEscena132();
         }
+    },
+    callEscena1311() {
+        this.escena = 3;
     },
     update: function () {
         if (this.escena == 0) {
-            this.dialogo = ["ARTHUR: °Dónde estoy, que ha pasado, tengo que encontrar \n a Sophie°.",
-                "-Arthur camina por la playa en busca de Sophie y encuentra \n a " + this.nombre + " -",
-                "ARTHUR: ¡Hey! ¿Estás bien?", this.nombre + ": Creo que me rompí la pierna, no la puedo mover."
-            ];
-            this.textOptionA.events.onInputUp.add(this.callEscena41, this);
-            this.textOptionB.events.onInputUp.add(this.callEscena5, this);
+            this.textOptionA1.events.onInputUp.add(this.verificarMedicina, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                this.textOptionA.setText("a) Ayudar a " + this.nombre + " y dejarlo lejos de la orilla");
-                this.textOptionB.setText("b) Ir en busca de Sophie");
+                this.textOptionA1.setText("a) Continuar");
                 this.clearText();
                 this.updateText();
             }
-        }
-        else if (this.escena == 1) {
-            this.escenaImg[0].visible = false;
-            this.escenaImg[1].visible = true;
-            this.dialogo = ["ARTHUR: Te dejaré lejos de la orilla, tengo que buscar a mi hija."
-                , this.nombre + ": Tranquilo, déjame junto a ese árbol, estaré bien.",
-                "ARTHUR: Aquí estás.", this.nombre + ": Gracias. Espero que encuentres a tu hija.",
-                "ARTHUR: Sé que ella está bien, ahora vuelvo."];
-            this.textOptionA.events.onInputUp.add(this.callEscena5Medicina, this);
-            this.textOptionB.events.onInputUp.add(this.callEscena5, this);
+        } else if (this.escena == 1) {
+            this.dialogo = ["ARTHUR: °Maldición, Sophie necesita sus medicinas, \npero si se la doy los demás sabrán que las tenía\n" +
+                " y no va a ser bueno, ¿qué hago?°"];
+            this.textOptionA131.events.onInputUp.add(this.verificarMedicina, this);
+            this.textOptionB131.events.onInputUp.add(this.verificarMedicina, this);
             if ((this.keyEnter.isDown || this.keySpace.isDown) && (this.keyEnter.downDuration(1) || this.keySpace.downDuration(1))) {
-                if (this.decisionA) {
-                    this.darMedicina = true;
-                    this.textOptionA.setText("a) Dar medicina");
-                    this.textOptionB.setText("b) Guardar medicina");
-                    this.auxMedidorAumenta = true;
-                    this.clearText();
-                    this.updateText();
-                } else {
-                    this.clearText();
-                    this.updateText();
-                    this.textOptionB.setText("Continuar");
-                }
+                this.textOptionA131.setText("a) Dar medicina a Sophie y tratar de explicar a los demás");
+                this.textOptionB131.setText("b) No dar la medicina a Sophie");
+                this.clearText();
+                this.updateText();
             }
+        } else if (this.escena == 2) {
+            alert("Escena 13.2")
+        } else if (this.escena == 3) {
+            this.dialogo = [this.nombre + ": Eres un… Sabías que Ámber y yo \nnecesitábamos medicina y la tuviste guardada\n" +
+                "todo este tiempo", "ARTHUR: Mi hija la necesitaba, cómo querías que no pensara en ella",
+            this.nombre + ": Pues ahora es momento de pensar en \nnosotros también"];
         }
     }
-
 };

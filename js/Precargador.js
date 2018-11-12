@@ -76,6 +76,10 @@ GameState.Precargador.prototype = {
         this.load.image('A3-R4', 'assets/escenas/acto III/A3-R4.png');
         this.load.image('A3-R5', 'assets/escenas/acto III/A3-R5.png');
         this.load.image('ACTO-3', 'assets/escenas/acto III/ACTO-3.png');
+        this.load.tilemap('MapaFondo', 'assets/escenas/recoleccion/Mapa_Capa de Patrones 1.csv', null, Phaser.Tilemap.CSV);
+        this.load.tilemap('MapaFondo2', 'assets/escenas/recoleccion/Mapa_Capa de patrones 2.csv', null, Phaser.Tilemap.CSV);
+        this.load.image('TileMap', 'assets/escenas/recoleccion/tileset-shinygold2.png');
+        this.load.image('Arthur', 'assets/escenas/recoleccion/characterGreen.png');
 
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);
