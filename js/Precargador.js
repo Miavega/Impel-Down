@@ -89,8 +89,8 @@ GameState.Precargador.prototype = {
         this.load.image('A3-17', 'assets/escenas/acto IV/A3-17.png');
         this.load.image('A3-18', 'assets/escenas/acto IV/A3-18.png');
         this.load.image('A3-19', 'assets/escenas/acto IV/A3-19.png');
-        this.load.tilemap('MapaFondoA4', 'assets/escenas/recoleccion/Mapa2_Capa de Patrones 1.csv', null, Phaser.Tilemap.CSV);
-        this.load.tilemap('MapaFondoA42', 'assets/escenas/recoleccion/Mapa2_Capa de patrones 2.csv', null, Phaser.Tilemap.CSV);
+        this.load.tilemap('MapaFondoA4', 'assets/escenas/recoleccion/mapa2_Capa de Patrones 1.csv', null, Phaser.Tilemap.CSV);
+        this.load.tilemap('MapaFondoA42', 'assets/escenas/recoleccion/mapa2_Capa de patrones 2.csv', null, Phaser.Tilemap.CSV);
 
 
         //SPRITESHEETS
