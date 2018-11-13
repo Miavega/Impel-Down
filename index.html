@@ -11,6 +11,7 @@
     <script type="text/javascript" src="js/Inicio.js"></script>
     <script type="text/javascript" src="js/Precargador.js"></script>
     <script type="text/javascript" src="js/Menu.js"></script>
+    <script type="text/javascript" src="js/gameover.js"></script>
     <script type="text/javascript" src="js/Instrucciones.js"></script>
     <script type="text/javascript" src="js/acto I/PrimeraEscena.js"></script>
     <script type="text/javascript" src="js/acto I/SegundaEscena.js"></script>
@@ -28,6 +29,10 @@
     <script type="text/javascript" src="js/acto IV/PrimeraEscenaA4.js"></script>
     <script type="text/javascript" src="js/acto IV/SegundaEscenaA4.js"></script>
     <script type="text/javascript" src="js/acto IV/TerceraEscenaA4.js"></script>
+    <script type="text/javascript" src="js/acto IV/CuartaEscenaA4.js"></script>
+    <script type="text/javascript" src="js/acto IV/RecoleccionA4.js"></script>
+    <script type="text/javascript" src="js/acto V/PrimeraEscenaA5.js"></script>
+    <script type="text/javascript" src="js/acto V/SegundaEscenaA5.js"></script>
     <script type="text/javascript" src="js/statusBar.js"></script>
 
 </head>
@@ -39,6 +44,7 @@
             game.state.add('Inicio', GameState.Inicio);
             game.state.add('Precargador', GameState.Precargador);
             game.state.add('Menu', GameState.Menu);
+            game.state.add('gameover', GameState.gameover);
             game.state.add('Instrucciones', GameState.Instrucciones);
             game.state.add('PrimeraEscena', GameState.PrimeraEscena);
             game.state.add('SegundaEscena', GameState.SegundaEscena);
@@ -51,11 +57,14 @@
             game.state.add('QuintaEscenaA3', GameState.QuintaEscenaA3);
             game.state.add('SextaEscenaA3', GameState.SextaEscenaA3);
             game.state.add('SeptimaEscenaA3', GameState.SeptimaEscenaA3);
+            game.state.add('PrimeraEscenaA5', GameState.PrimeraEscenaA5);
+            game.state.add('SegundaEscenaA5', GameState.SegundaEscenaA5);
             game.state.add('SucesosAleatorios', GameState.SucesosAleatorios);
             game.state.add('Recoleccion', GameState.Recoleccion);
             game.state.add('PrimeraEscenaA4', GameState.PrimeraEscenaA4);
             game.state.add('SegundaEscenaA4', GameState.SegundaEscenaA4);
             game.state.add('TerceraEscenaA4', GameState.TerceraEscenaA4);
+            game.state.add('CuartaEscenaA4', GameState.CuartaEscenaA4);
             game.state.add('RecoleccionA4', GameState.RecoleccionA4);
             game.state.start('Inicio');
         })();

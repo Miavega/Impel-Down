@@ -1,12 +1,13 @@
 GameState.CuartaEscenaA4 = function (game) { };
 GameState.CuartaEscenaA4.prototype = {
-    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina, musica) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.medicina = medicina;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -98,17 +99,28 @@ GameState.CuartaEscenaA4.prototype = {
         }
     },
     callEscena19: function () {
+        this.verificarVariables();
         this.escena = 1;
         this.clearText();
         this.textOption.setText("");
     },
     callActoV: function () {
+        this.verificarVariables();
         this.escenaImg[1].visible = false;
         this.add.button(0, 0, 'ACTO-5', this.startGame, this)
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
-        alert("ACTO V")
+        this.musica.stop();
+        this.game.state.start('PrimeraEscenaA5', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
+            this.medidorVida.getValor(), this.medidorSocial.getValor());
+    },
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.medidorAgua.getValor() >= 100
+            || this.medidorComida.getValor() >=100 || this.medidorVida.getValor() >=100 || this.medidorSocial.getValor() >=0) {
+            this.musica.stop();
+            this.game.state.start('gameover');
+        }
     },
     update: function () {
         if (this.escena == 0) {
@@ -122,8 +134,8 @@ GameState.CuartaEscenaA4.prototype = {
         else if (this.escena == 1) {
             this.escenaImg[0].visible = false;
             this.escenaImg[1].visible = true;
-            this.dialogo = ["ARTHUR: Tomen todo lo que crean que nos pueda ayudar, hice éstos remos con partes del avión, " +
-                "así podremos guiar la balsa hacía la isla.", "ÁMBER: Creo que estoy lista, todo saldrá bien, lo sé." +
+            this.dialogo = ["ARTHUR: Tomen todo lo que crean que nos pueda ayudar, \nhice éstos remos con partes del avión, " +
+                "así podremos \nguiar la balsa hacía la isla.", "ÁMBER: Creo que estoy lista, todo saldrá bien, lo sé.",
             "SOPHIE: Era en serio lo de ir a casa tú y yo.", "ARTHUR: Solo si tú quieres.", "SOPHIE: Ya sabes la respuesta."
             ];
             this.textOption.events.onInputUp.add(this.callActoV, this);

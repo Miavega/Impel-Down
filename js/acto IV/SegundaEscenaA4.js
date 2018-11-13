@@ -1,19 +1,20 @@
 GameState.SegundaEscenaA4 = function (game) { };
 GameState.SegundaEscenaA4.prototype = {
-    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina, musica) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.medicina = medicina;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
         this.escenaImg = [this.add.sprite(0, 0, 'A4-16')];
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["ARTHUR: Si logramos construir una balsa, podremos llegar a la otra isla.",
+        this.dialogo = ["ARTHUR: Si logramos construir una balsa, \npodremos llegar a la otra isla.",
             "ÁMBER: ¡Por fin! Saldremos de ésta isla, ya quiero ver a mis hijos.", "ARTHUR: Lo harás, y " +
             "tú y yo tal vez volvamos a casa.", "SOPHIE: ¿A casa?", "ARTHUR: Si, tú y yo.", "Sophie: Ahora en serio que quiero ver esa balsa."
         ];
@@ -114,10 +115,18 @@ GameState.SegundaEscenaA4.prototype = {
         }
     },
     callSucesoAleatorio: function () {
+        this.verificarVariables();
         this.numeroSuceso = Math.floor((Math.random() * 5));
         this.game.state.start('SucesosAleatorios', true, false, 1, this.medicina, 0,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, 0, this.numeroSuceso, 3);
+            this.vidaAmber, 0, this.numeroSuceso, 3, this.musica);
+    },
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.medidorAgua.getValor() >= 100
+            || this.medidorComida.getValor() >=100 || this.medidorVida.getValor() >=100 || this.medidorSocial.getValor() >=0) {
+            this.musica.stop();
+            this.game.state.start('gameover');
+        }
     },
     update: function () {
         if (this.escena == 0) {

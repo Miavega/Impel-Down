@@ -9,7 +9,7 @@ GameState.PrimeraEscenaA2.prototype = {
         this.text = this.add.text(32, 32, '', { font: "15px Arial", fill: "#19de65" });
 
         //DECLARAMOS LAS ESCENAS
-        this.escenaImg = []
+        this.escenaImg = [];
         this.escenaImg = [this.add.sprite(0, 0, 'A2-3.1'), this.add.sprite(0, 0, 'A2-3.1.1'),
         this.add.sprite(0, 0, 'A2-3.1.2'), this.add.sprite(0, 0, 'A2-3.2'), this.add.sprite(0, 0, 'A2-3.2.2')
         ];
@@ -82,6 +82,10 @@ GameState.PrimeraEscenaA2.prototype = {
 
         //SOBREVIVIENTE (MCGREGOR = 0, JEFF = 1, BETTY = 2)
         this.sobreviviente = 0;
+
+        //Musica del juego
+        this.musica = this.game.add.audio('musicActo2');
+        this.musica.play();
 
     },
     //TEXTO
@@ -166,6 +170,7 @@ GameState.PrimeraEscenaA2.prototype = {
     },
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
+        this.musica.stop();
         this.game.state.start('PrimeraEscenaA3', true, false, this.decisionA, this.sobreviviente, this.medidorAgua.getValor(),
             this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor());
     },

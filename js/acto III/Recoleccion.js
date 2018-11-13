@@ -1,6 +1,7 @@
 GameState.Recoleccion = function (game) { };
 GameState.Recoleccion.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin,
+                    musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -10,6 +11,7 @@ GameState.Recoleccion.prototype = {
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.botiquin = botiquin;
+        this.musica = musica;
     },
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -122,9 +124,10 @@ GameState.Recoleccion.prototype = {
         this.recogidos--;
     },
     startGame: function () {
+        //alert("FUNCIONA PAPU")
         this.game.state.start('SeptimaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
+            this.vidaAmber, this.botiquin, this.musica);
     },
     update: function () {
         this.game.physics.arcade.collide(this.sprite, this.layer);
@@ -141,7 +144,7 @@ GameState.Recoleccion.prototype = {
         }
 
         if (this.keyUp.isDown) {
-            this.sprite.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.sprite.angle, 300));
+            this.sprite.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.sprite.angle, 100));
         }
         else if (this.keyDown.isDown) {
             this.sprite.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.sprite.angle, -100));

@@ -1,6 +1,7 @@
 GameState.SextaEscenaA3 = function (game) { };
 GameState.SextaEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin,
+                    musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -10,6 +11,7 @@ GameState.SextaEscenaA3.prototype = {
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.botiquin = botiquin;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -129,7 +131,8 @@ GameState.SextaEscenaA3.prototype = {
         this.updateMedidorDisminuir(this.medidorAgua, 0, 10, this.textMedidorAgua);
         this.game.state.start('Recoleccion', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
+            this.vidaAmber, this.botiquin, this.musica);
+        //this.game.state.start('SegundaEscenaA3', true, false, this.decisionA, this.sobreviviente);
     },
     updateMedidorDisminuir(medidor, rangoa, rangob, texto) {
         if (this.auxMedidorDisminuye) {
@@ -160,8 +163,9 @@ GameState.SextaEscenaA3.prototype = {
         this.textOptionA.setText("");
         this.textOptionB.setText("");
         this.clearText();
-        this.sobreviviente--;
+        this.vidaSobreviviente--;
         this.verificarVariables();
+        //alert(this.sobreviviente)
         this.escena = 1;
     },
     callEscena12A() {
@@ -183,12 +187,12 @@ GameState.SextaEscenaA3.prototype = {
     verificarVariables() {
         if (this.vidaAmber === 0 || this.vidaSobreviviente === 0 || this.medidorAgua.getValor() === 0
             || this.medidorComida.getValor() === 0 || this.medidorVida.getValor() === 0 || this.medidorSocial.getValor() === 0) {
-            alert("Aca termina el juego");
+            //alert("Aca termina el juego");
         }
     },
-    verificarMedicina() {
-        if (this.medicina === 0) {
-            alert("Termina el juego")
+    verificarMedicina(){
+        if(this.medicina === 0){
+            //alert("Termina el juego")
         }
     },
     update: function () {

@@ -1,6 +1,6 @@
 GameState.SegundaEscenaA3 = function (game) { };
 GameState.SegundaEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial) {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -8,6 +8,7 @@ GameState.SegundaEscenaA3.prototype = {
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -128,7 +129,7 @@ GameState.SegundaEscenaA3.prototype = {
         //CAMBIO DE ESTADO A JUEGO
         this.game.state.start('TerceraEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
+            this.vidaAmber, this.botiquin, this.musica);
     },
     callEscena6: function () {
         this.vidaAmber--;

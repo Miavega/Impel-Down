@@ -1,8 +1,11 @@
 GameState.TerceraEscena = function (game) { };
+//OSCURESE LA PANTALLA
+//MUEVE LA PANTALLA
 GameState.TerceraEscena.prototype = {
-    init: function (decisionA, decisionB) {
+    init: function (decisionA, decisionB,musica) {
         this.decisionA = decisionA;
         this.decisionB = decisionB;
+        this.musica = musica;
     },
     create: function () {
         //CARGAMOS EL FONDO Y EL SPRITE DEL AVIÓN
@@ -35,11 +38,9 @@ GameState.TerceraEscena.prototype = {
         //CAMBIO DE ESTADO A JUEGO
         this.game.state.start('PrimeraEscenaA2', true, false, this.decisionA, this.decisionB);
     },
-    //MUEVE LA PANTALLA
     shake: function () {
         this.game.camera.shake(0.05, 500);
     },
-    //OSCURESE LA PANTALLA
     fade: function () {
         this.game.camera.fade(0x000000, 4000);
     },
@@ -82,11 +83,12 @@ GameState.TerceraEscena.prototype = {
             this.humo.x += 2;
             this.humo.y += 2;
         }
-        else if (this.timer == 17) {
+        else if (this.timer === 17) {
             this.shake();
             this.fade();
         }
-        else if (this.timer == 21) {
+        else if (this.timer === 21) {
+            this.musica.stop();
             this.screen[1].visible = false;
             this.resetFade();
             this.estocasticos = [this.add.button(0, 0, 'estocastico-2', this.imgEstocastico, this),

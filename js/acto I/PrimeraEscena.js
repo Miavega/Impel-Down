@@ -70,6 +70,10 @@ GameState.PrimeraEscena.prototype = {
         //Agregamos el Overlay
         this.add.sprite(0, 0, 'overlay');
 
+        //Musica de la escena
+        this.musica = this.game.add.audio('musicActo1');
+        this.musica.play();
+
     },
     //TEXTO
     nextLine: function () {
@@ -149,7 +153,7 @@ GameState.PrimeraEscena.prototype = {
         }
         else if (this.escena = 2) {
             this.game.state.start('SegundaEscena', false, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
-                this.medidorVida.getValor(), this.medidorSocial.getValor());
+                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.musica);
         }
     },
 

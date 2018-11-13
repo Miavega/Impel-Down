@@ -81,18 +81,31 @@ GameState.Precargador.prototype = {
         this.load.image('TileMap', 'assets/escenas/recoleccion/tileset-shinygold2.png');
         this.load.image('Arthur', 'assets/escenas/recoleccion/characterGreen.png');
 
+
         //ACTO IV
         this.load.image('ACTO-4', 'assets/escenas/acto IV/ACTO-4.png');
-        this.load.image('A3-14', 'assets/escenas/acto IV/A3-14.png');
-        this.load.image('A3-15', 'assets/escenas/acto IV/A3-15.png');
-        this.load.image('A3-16', 'assets/escenas/acto IV/A3-16.png');
-        this.load.image('A3-17', 'assets/escenas/acto IV/A3-17.png');
-        this.load.image('A3-18', 'assets/escenas/acto IV/A3-18.png');
-        this.load.image('A3-19', 'assets/escenas/acto IV/A3-19.png');
+        this.load.image('A4-14', 'assets/escenas/acto IV/A3-14.png');
+        this.load.image('A4-15', 'assets/escenas/acto IV/A3-15.png');
+        this.load.image('A4-16', 'assets/escenas/acto IV/A3-16.png');
+        this.load.image('A4-17', 'assets/escenas/acto IV/A3-17.png');
+        this.load.image('A4-18', 'assets/escenas/acto IV/A3-18.png');
+        this.load.image('A4-19', 'assets/escenas/acto IV/A3-19.png');
         this.load.tilemap('MapaFondoA4', 'assets/escenas/recoleccion/mapa2_Capa de Patrones 1.csv', null, Phaser.Tilemap.CSV);
         this.load.tilemap('MapaFondoA42', 'assets/escenas/recoleccion/mapa2_Capa de patrones 2.csv', null, Phaser.Tilemap.CSV);
 
 
+        //ACTO V
+        this.load.image('A5-25', 'assets/escenas/acto V/A5-25.png');
+        this.load.image('A5-25.1', 'assets/escenas/acto V/A5-25.1.png');
+        this.load.image('A5-25.2', 'assets/escenas/acto V/A5-25.2.png');
+        this.load.image('A5-20', 'assets/escenas/acto V/A5-20.png');
+        this.load.image('A5-21', 'assets/escenas/acto V/A5-21.png');
+        this.load.image('A5-22', 'assets/escenas/acto V/A5-22.png');
+        this.load.image('A5-23', 'assets/escenas/acto V/A5-23.png');
+        this.load.image('A5-24', 'assets/escenas/acto V/A5-24.png');
+        this.load.image('A5-25.1.1', 'assets/escenas/acto V/A5-25.1.1.png');
+        this.load.image('A5-25.2.1', 'assets/escenas/acto V/A5-25.2.1.png');
+        this.load.image('ACTO-5', 'assets/escenas/acto V/ACTO-5.png');
         //SPRITESHEETS
         this.load.spritesheet('button-start', 'assets/button-start1.png', 286, 84);
         this.load.spritesheet('airplane', 'assets/airplane.png', 150, 100, 10);
@@ -102,6 +115,18 @@ GameState.Precargador.prototype = {
         this.load.image('barraProgreso', 'assets/barra.png');
         this.load.image('barraIndividual', 'assets/barraIndividual.png');
 
+        //GAME OVER
+        this.load.image('gameover', 'assets/gameOverImpelDown.png');
+        this.load.image('creditos', 'assets/CreditosFinal.png');
+
+        //MUSICA DEL JUEGO
+        this.load.audio('musicActo1', ['Musica/Acto1.mp3','Musica/Acto1.ogg']);
+        this.load.audio('musicActo2', ['Musica/Acto2.mp3','Musica/Acto2.ogg']);
+        this.load.audio('musicActo3', ['Musica/Acto3.mp3','Musica/Acto3.ogg']);
+        this.load.audio('musicActo4', ['Musica/Acto4.mp3','Musica/Acto4.ogg']);
+        this.load.audio('musicActo5', ['Musica/Acto5.mp3','Musica/Acto5.ogg']);
+        this.load.audio('musicCreditos', ['Musica/Creditos.mp3','Musica/Creditos.ogg']);
+        this.load.audio('musicTitanic', ['Musica/Titanic.mp3','Musica/Titanic.ogg']);
     },
     create: function () {
         //CAMBIO DE ESTADO AL MENU

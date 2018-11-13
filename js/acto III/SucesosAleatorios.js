@@ -1,7 +1,7 @@
 GameState.SucesosAleatorios = function (game) { };
 GameState.SucesosAleatorios.prototype = {
     init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial,
-        vidaAmber, botiquin, evento, esceanaRetorno) {
+                    vidaAmber, botiquin, evento, esceanaRetorno, musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -13,12 +13,13 @@ GameState.SucesosAleatorios.prototype = {
         this.botiquin = botiquin;
         this.evento = evento;
         this.escenaRetorno = esceanaRetorno;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
         this.escenaImg = []
         this.escenaImg = [this.add.sprite(0, 0, 'A3-R1'), this.add.sprite(0, 0, 'A3-R2'),
-        this.add.sprite(0, 0, 'A3-R3'), this.add.sprite(0, 0, 'A3-R4'), this.add.sprite(0, 0, 'A3-R5')
+            this.add.sprite(0, 0, 'A3-R3'), this.add.sprite(0, 0, 'A3-R4'), this.add.sprite(0, 0, 'A3-R5')
         ];
 
         this.escenaImg[0].visible = false;
@@ -134,17 +135,17 @@ GameState.SucesosAleatorios.prototype = {
         if (this.escenaRetorno == 0) {
             this.game.state.start('CuartaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
                 this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-                this.vidaAmber, this.botiquin, 1);
+                this.vidaAmber, this.botiquin, 1, this.musica);
         } else if (this.escenaRetorno == 1) {
             this.game.state.start('QuintaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
                 this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-                this.vidaAmber, this.botiquin);
+                this.vidaAmber, this.botiquin, this.musica);
         } else if (this.escenaRetorno == 2) {
             this.game.state.start('SegundaEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
-                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
+                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina, this.musica);
         } else if (this.escenaRetorno == 3) {
             this.game.state.start('TerceraEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
-                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
+                this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina, this.musica);
         }
     },
     //OPCIONES SUCESO TIPO I

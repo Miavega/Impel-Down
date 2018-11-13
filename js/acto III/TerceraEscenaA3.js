@@ -1,6 +1,7 @@
 GameState.TerceraEscenaA3 = function (game) { };
 GameState.TerceraEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin,
+                    musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -10,6 +11,7 @@ GameState.TerceraEscenaA3.prototype = {
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.botiquin = botiquin;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -117,7 +119,7 @@ GameState.TerceraEscenaA3.prototype = {
         //CAMBIO DE ESTADO A JUEGO (El 0 del final es para saber si es la primera vez que se llama la siguiente escena)
         this.game.state.start('CuartaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin, 0);
+            this.vidaAmber, this.botiquin, 0, this.musica);
     },
     update: function () {
         if (this.escena == 0) {

@@ -1,12 +1,13 @@
 GameState.RecoleccionA4 = function (game) { };
 GameState.RecoleccionA4.prototype = {
-    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina, musica) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.medicina = medicina;
+        this.musica = musica;
     },
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -37,7 +38,7 @@ GameState.RecoleccionA4.prototype = {
 
         this.layer.resizeWorld();
 
-        this.sprite = this.game.add.sprite(450, 400, 'Arthur');
+        this.sprite = this.game.add.sprite(800, 800, 'Arthur');
         this.sprite.anchor.setTo(0.5, 0.5);
 
         this.game.physics.enable(this.sprite);
@@ -120,7 +121,7 @@ GameState.RecoleccionA4.prototype = {
     },
     startGame: function () {
         this.game.state.start('CuartaEscenaA4', true, false, this.medidorAgua.getValor(), this.medidorComida.getValor(),
-            this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina);
+            this.medidorVida.getValor(), this.medidorSocial.getValor(), this.vidaAmber, this.medicina,this.musica);
     },
     update: function () {
         this.game.physics.arcade.collide(this.sprite, this.layer);

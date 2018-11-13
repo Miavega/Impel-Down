@@ -1,19 +1,20 @@
 GameState.TerceraEscenaA4 = function (game) { };
 GameState.TerceraEscenaA4.prototype = {
-    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina) {
+    init: function (valorAgua, valorComida, valorVida, valorSocial, vidaAmber, medicina, musica) {
         this.valorAgua = valorAgua;
         this.valorComida = valorComida;
         this.valorVida = valorVida;
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.medicina = medicina;
+        this.musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
         this.escenaImg = [this.add.sprite(0, 0, 'A4-17')];
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["ARTHUR: Necesitaremos ramas y otras cosas, ustedes continúen acá, yo iré por materiales.",
+        this.dialogo = ["ARTHUR: Necesitaremos ramas y otras cosas, ustedes continúen acá, \nyo iré por materiales.",
             "SOPHIE: Ve con cuidado", "ARTHUR: lo tendré."
         ];
 
@@ -113,10 +114,18 @@ GameState.TerceraEscenaA4.prototype = {
         }
     },
     callSucesoAleatorio: function () {
+        this.verificarVariables();
         this.numeroSuceso = Math.floor((Math.random() * 5));
-        this.game.state.start('SucesosAleatorios', true, false, 1, this.medicina, 0,
+        this.game.state.start('RecoleccionA4', true, false,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, 0, this.numeroSuceso, 3);
+            this.vidaAmber, this.medicina, this.musica);
+    },
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.medidorAgua.getValor() >= 100
+            || this.medidorComida.getValor() >=100 || this.medidorVida.getValor() >=100 || this.medidorSocial.getValor() >=0) {
+            this.musica.stop();
+            this.game.state.start('gameover');
+        }
     },
     update: function () {
         if (this.escena == 0) {

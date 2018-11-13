@@ -50,8 +50,6 @@ GameState.PrimeraEscenaA3.prototype = {
         this.escena = 0;
         this.auxMedidorAumenta = true;
         this.auxMedidorDisminuye = true;
-        //Variable para saber si dio medicina
-        this.darMedicina = false;
 
         //VSE DECLARAN LAS VARIABLES QUE LLEVAN LA CUENTA DE LA VIDA DEL SOBREVIVIENTE, EL BOTIQUIN Y LA MEDICINA
         this.medicina = 3;
@@ -88,6 +86,9 @@ GameState.PrimeraEscenaA3.prototype = {
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
 
+        //Musica del juego
+        this.musica = this.game.add.audio('musicActo3');
+        this.musica.play();
     },
     //TEXTO
     nextLine: function () {
@@ -136,7 +137,8 @@ GameState.PrimeraEscenaA3.prototype = {
     startGame: function () {
         //CAMBIO DE ESTADO A JUEGO
         this.game.state.start('SegundaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
-            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor());
+            this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
+            this.musica);
     },
     callEscena41: function () {
         this.updateMedidorAumentar(this.medidorSocial, 10, 1, this.textMedidorSocial);
@@ -146,19 +148,14 @@ GameState.PrimeraEscenaA3.prototype = {
         this.clearText();
     },
     callEscena5: function () {
-        if (this.darMedicina) {
-            this.vidaSobreviviente--;
-            this.darMedicina = false;
-        }
+        this.vidaSobreviviente--;
         this.updateMedidorDisminuir(this.medidorSocial, 10, 1, this.textMedidorSocial);
         this.startGame();
     },
     callEscena5Medicina: function () {
-        if (this.darMedicina) {
-            this.updateMedidorAumentar(this.medidorSocial, 0, 5, this.textMedidorSocial);
-            this.medicina--;
-            this.startGame();
-        }
+        this.updateMedidorAumentar(this.medidorSocial, 0, 5, this.textMedidorSocial);
+        this.medicina--;
+        this.startGame();
     },
     update: function () {
         if (this.escena == 0) {

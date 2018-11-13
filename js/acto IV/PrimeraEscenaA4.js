@@ -14,14 +14,14 @@ GameState.PrimeraEscenaA4.prototype = {
         this.escenaImg[1].visible = false;
 
         //DECLARAMOS LOS DIALOGOS
-        this.dialogo = ["SOPHIE: No estoy molesta contigo.", "ARTHUR: ¿A que te refieres?",
+        this.dialogo = ["SOPHIE: No estoy molesta contigo.", "ARTHUR: ¿A qué te refieres?",
             "SOPHIE: Entiendo porque decidiste que viviera \n con mamá, es solo que me es difícil dejarte.",
-            "ARTHUR: No significa que no nos volvamos a ver.", "SOPHIE: Lo sé, tampoco hablaré jamás de lo que pasó acá, sé que me protegías",
-            "ÁMBER: No creerán lo que acabo de ver, Arthur, Sophie tienen que ver esto conmigo"
+            "ARTHUR: No significa que no nos volvamos a ver.", "SOPHIE: Lo sé, tampoco hablaré jamás de lo que pasó acá, \nsé que me protegías",
+            "ÁMBER: No creerán lo que acabo de ver, Arthur, Sophie \ntienen que ver esto conmigo."
         ];
 
-        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#000" });
-        this.textOption = this.add.text(32, 750, '', { font: "18px Play", fill: "#000" });
+        this.text = this.add.text(32, 120, '', { font: "16px Play", fill: "#fff" });
+        this.textOption = this.add.text(32, 750, '', { font: "18px Play", fill: "#fff" });
 
         //CLIC SOBRE LOS TEXTOS DE OPCIONES
         this.textOption.inputEnabled = true;
@@ -70,6 +70,10 @@ GameState.PrimeraEscenaA4.prototype = {
 
         //AGREGAMOS EL OVERLAY
         this.add.sprite(0, 0, 'overlay');
+
+        //Musica del juego
+        this.musica = this.game.add.audio('musicActo4');
+        this.musica.play();
     },
     //TEXTO
     nextLine: function () {
@@ -116,6 +120,8 @@ GameState.PrimeraEscenaA4.prototype = {
         }
     },
     callEscena15: function () {
+        this.clearText();
+        this.verificarVariables();
         this.updateMedidorDisminuir(this.medidorComida, 10, 1, this.textMedidorComida);
         this.auxMedidorDisminuye = true;
         this.updateMedidorDisminuir(this.medidorAgua, 10, 1, this.textMedidorAgua);
@@ -123,10 +129,19 @@ GameState.PrimeraEscenaA4.prototype = {
         this.auxMedidorDisminuye = true;
     },
     callSucesoAleatorio: function () {
+        this.clearText();
+        this.verificarVariables();
         this.numeroSuceso = Math.floor((Math.random() * 5));
         this.game.state.start('SucesosAleatorios', true, false, 1, this.medicina, 0,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, 0, this.numeroSuceso, 2);
+            this.vidaAmber, 0, this.numeroSuceso, 2, this.musica);
+    },
+    verificarVariables() {
+        if (this.vidaAmber === 0 || this.medidorAgua.getValor() >= 100
+            || this.medidorComida.getValor() >=100 || this.medidorVida.getValor() >=100 || this.medidorSocial.getValor() >=0) {
+            this.musica.stop();
+            this.game.state.start('gameover');
+        }
     },
     update: function () {
         if (this.escena == 0) {
@@ -137,10 +152,10 @@ GameState.PrimeraEscenaA4.prototype = {
                 this.updateText();
             }
         } else if (this.escena == 1) {
-            this.escena[0].visible = false;
-            this.escena[1].visible = true;
+            this.escenaImg[0].visible = false;
+            this.escenaImg[1].visible = true;
             this.dialogo = ["ÁMBER: Díganme que ustedes también lo ven.", "SOPHIE: ¿Qué cosa?", "ÁMBER: A lo lejos, mira, es humo.",
-                "SOPHIE: Parece más bien una nube.", "ARTHUR: No Sophie, creo que Ámber tiene razón, es humo, sabía que debíamos estar " +
+                "SOPHIE: Parece más bien una nube.", "ARTHUR: No Sophie, creo que Ámber tiene razón, es humo, \nsabía que debíamos estar " +
                 "cerca de otra isla, tenemos que llegar allá", "ÁMBER: Pero ¿Cómo?", "ARTHUR: Tengo una idea..."
             ];
             this.textOption.events.onInputUp.add(this.callSucesoAleatorio, this)

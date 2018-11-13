@@ -1,10 +1,11 @@
 GameState.SegundaEscena = function (game) { };
 GameState.SegundaEscena.prototype = {
-    init: function (agua, comida, vida, social) {
+    init: function (agua, comida, vida, social, musica) {
         this.valorAgua = agua;
         this.valorComida = comida;
         this.valorVida = vida;
         this.valorSocial = social;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS TIPO DE LETRA Y TODO ESO PARA EL CONTADOR Y EL PUNTAJE
@@ -414,7 +415,7 @@ GameState.SegundaEscena.prototype = {
         }
         //ESCENA 2.3
         else if (this.escena == 8) {
-            this.game.state.start('TerceraEscena', false, false, this.decisionA, this.decisionB);
+            this.game.state.start('TerceraEscena', false, false, this.decisionA, this.decisionB, this.musica);
         }
     },
 

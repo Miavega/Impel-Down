@@ -1,7 +1,7 @@
 GameState.CuartaEscenaA3 = function (game) { };
 GameState.CuartaEscenaA3.prototype = {
     init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin,
-        escena) {
+        escena, musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -13,6 +13,7 @@ GameState.CuartaEscenaA3.prototype = {
         this.botiquin = botiquin;
         //La siguiente variable indicará si la escena está en su primera o en su segunda parte
         this.primeraEscena = escena;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -143,7 +144,7 @@ GameState.CuartaEscenaA3.prototype = {
         this.numeroSuceso = Math.floor((Math.random() * 5));
         this.game.state.start('SucesosAleatorios', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin, this.numeroSuceso, this.sucesoAleatorioNo);
+            this.vidaAmber, this.botiquin, this.numeroSuceso, this.sucesoAleatorioNo, this.musica);
     },
     callEscena8() {
         this.textOptionA.setText("");

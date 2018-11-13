@@ -1,6 +1,7 @@
 GameState.QuintaEscenaA3 = function (game) { };
 GameState.QuintaEscenaA3.prototype = {
-    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin) {
+    init: function (sobreviviente, medicina, vidaSobreviviente, valorAgua, valorComida, valorVida, valorSocial, vidaAmber, botiquin,
+                    musica) {
         this.sobreviviente = sobreviviente;
         this.medicina = medicina;
         this.vidaSobreviviente = vidaSobreviviente;
@@ -10,6 +11,7 @@ GameState.QuintaEscenaA3.prototype = {
         this.valorSocial = valorSocial;
         this.vidaAmber = vidaAmber;
         this.botiquin = botiquin;
+        this.musica = musica;
     },
     create: function () {
         //DECLARAMOS LAS ESCENAS
@@ -134,7 +136,7 @@ GameState.QuintaEscenaA3.prototype = {
         //CAMBIO DE ESTADO A JUEGO
         this.game.state.start('SextaEscenaA3', true, false, this.sobreviviente, this.medicina, this.vidaSobreviviente,
             this.medidorAgua.getValor(), this.medidorComida.getValor(), this.medidorVida.getValor(), this.medidorSocial.getValor(),
-            this.vidaAmber, this.botiquin);
+            this.vidaAmber, this.botiquin, this.musica);
     },
     callEscena10A() {
         this.updateMedidorAumentar(this.medidorSocial, 0, 10, this.textMedidorSocial);
@@ -195,13 +197,13 @@ GameState.QuintaEscenaA3.prototype = {
     },
     verificarMedicina(){
       if(this.medicina === 0){
-          alert("Termina el juego")
+          //alert("Termina el juego")
       }
     },
     verificarVariables() {
         if (this.vidaAmber === 0 || this.vidaSobreviviente === 0 || this.medidorAgua.getValor() === 0
             || this.medidorComida.getValor() === 0 || this.medidorVida.getValor() === 0 || this.medidorSocial.getValor() === 0) {
-            alert("Aca termina el juego");
+            //alert("Aca termina el juego");
         }
     },
     update: function () {
